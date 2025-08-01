@@ -9,10 +9,10 @@
 
   outputs = inputs@{ self, nixpkgs, home-manager, ... }: {
     nixosConfigurations = {
-      laptop1 = nixpkgs.lib.nixosSystem {
+      lbox = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ./hosts/laptop1
+          ./hosts/lbox
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
