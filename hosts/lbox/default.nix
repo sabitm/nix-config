@@ -14,9 +14,31 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Enable ZFS support
+  boot.supportedFilesystems.zfs = true;
+  boot.zfs.forceImportRoot = false;
+  boot.zfs.extraPools = [ "tank0" ];
+
+  # Mount ZFS volume filesystem
+  fileSystems."/var/lib/docker" =
+    { device = "/dev/zvol/tank0/arch/DATA/default/docker";
+      fsType = "ext4";
+    };
+
+  # Preparing ZFS mountpoint
+  system.activationScripts.setupMountDir = {
+    deps = [ "users" ];
+    text = ''
+      mkdir -p /home/sabit/Downloads
+      chown sabit:users /home/sabit/Downloads
+      mkdir -p /home/sabit/.cache
+      chown sabit:users /home/sabit/.cache
+    '';
+  };
+
+  # Networking
   networking.hostName = "lbox";
-  # Pick only one of the below networking options.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.hostId = "007f0200";
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
   # Set your time zone.
@@ -34,18 +56,9 @@
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
 
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
-
-
   # Enable GNOME
   services.desktopManager.gnome.enable = true;
   services.displayManager.gdm.enable = true;
-
-
-  # Configure keymap in X11
-  # services.xserver.xkb.layout = "us";
-  # services.xserver.xkb.options = "eurosign:e,caps:escape";
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
