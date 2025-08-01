@@ -71,6 +71,14 @@
     # EDITOR = "emacs";
   };
 
+  # Change GNOME theme to dark
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+      gtk-theme = "Adwaita-dark";
+    };
+  };
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
