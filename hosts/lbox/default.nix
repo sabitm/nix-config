@@ -78,8 +78,6 @@
   users.users.sabit = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
-    packages = with pkgs; [
-    ];
   };
 
   # programs.firefox.enable = true;
@@ -89,6 +87,7 @@
   environment.systemPackages = with pkgs; [
     neovim
     git
+    wl-clipboard
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
