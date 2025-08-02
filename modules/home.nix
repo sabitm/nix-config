@@ -71,11 +71,16 @@
     # EDITOR = "emacs";
   };
 
-  # Change GNOME theme to dark
+  # GNOME settings
   dconf.settings = {
+    # Change GNOME theme to dark
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
       gtk-theme = "Adwaita-dark";
+    };
+    # Disable App Search
+    "org/gnome/desktop/search-providers" = {
+      disable-external = true;
     };
   };
 
