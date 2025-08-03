@@ -48,6 +48,11 @@
     # Lib here
   ];
 
+  # Add nerd font
+  fonts.packages = with pkgs; [
+    meslo-lgs-nf
+  ];
+
   # Allow unfree package
   nixpkgs.config.allowUnfree = true;
 
