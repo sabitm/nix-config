@@ -65,8 +65,18 @@
   # Allow unfree package
   nixpkgs.config.allowUnfree = true;
 
-  # Use new command and flakes
-  nix.settings.experimental-features = "nix-command flakes";
+  # Nix settings
+  nix = {
+    settings = {
+      auto-optimise-store = true;
+      experimental-features = [ "nix-command" "flakes" ];
+    };
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "–delete-older-than 45d";
+    };
+  };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
