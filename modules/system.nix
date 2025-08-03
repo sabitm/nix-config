@@ -39,13 +39,23 @@
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
     fd
+    gcc
     git
+    go
     lazygit
     neovim
+    nodejs
+    python3
     ripgrep
-    steam-run
+    unzip
     wl-clipboard
     yazi
+  ];
+
+  # Enable nix-ld to support traditional FHS
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    # Lib here
   ];
 
   # Enable the OpenSSH daemon.
