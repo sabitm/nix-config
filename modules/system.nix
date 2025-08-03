@@ -38,9 +38,14 @@
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
-    neovim
+    fd
     git
+    lazygit
+    neovim
+    ripgrep
+    steam-run
     wl-clipboard
+    yazi
   ];
 
   # Enable the OpenSSH daemon.
