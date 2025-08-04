@@ -22,7 +22,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.sabit = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "docker" ];
   };
 
   # List packages installed in system profile.
@@ -57,6 +57,9 @@
   fonts.packages = with pkgs; [
     meslo-lgs-nf
   ];
+
+  # Enable docker
+  virtualisation.docker.enable = true;
 
   # Allow unfree package
   nixpkgs.config.allowUnfree = true;
