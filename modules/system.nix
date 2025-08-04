@@ -35,6 +35,7 @@
     lazygit
     neovim
     nodejs
+    php
     python3
     ripgrep
     unzip
