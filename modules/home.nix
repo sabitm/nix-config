@@ -23,6 +23,7 @@
   # environment.
   home.packages = with pkgs; [
     dbeaver-bin
+    gimp
     slack
   ];
 
