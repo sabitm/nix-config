@@ -58,7 +58,7 @@
   #  /etc/profiles/per-user/sabit/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    EDITOR = "nvim";
+    # EDITOR = "nvim";
   };
 
   # GNOME settings
@@ -66,11 +66,19 @@
     # Change GNOME theme to dark
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
-      gtk-theme = "Adwaita-dark";
     };
     # Disable App Search
     "org/gnome/desktop/search-providers" = {
       disable-external = true;
+    };
+  };
+
+  # Set GTK theme
+  gtk.enable = true;
+  gtk.gtk3 = {
+    enable = true;
+    extraConfig = {
+      gtk-application-prefer-dark-theme = true;
     };
   };
 

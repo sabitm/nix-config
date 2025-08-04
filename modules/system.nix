@@ -42,6 +42,11 @@
     yazi
   ];
 
+  # Set environment variable
+  environment.variables = {
+    EDITOR = "nvim";
+  };
+
   # Enable nix-ld to support traditional FHS
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
