@@ -67,6 +67,11 @@
   # Allow unfree package
   nixpkgs.config.allowUnfree = true;
 
+  # Allow insecure packages
+  nixpkgs.config.permittedInsecurePackages = [
+    "openssl-1.1.1w"
+  ];
+
   # Nix settings
   nix = {
     settings = {

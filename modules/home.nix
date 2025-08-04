@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
-
+let
+  # Add postman9 package
+  postman9 = pkgs.callPackage ./subs/postman9/package.nix {};
+in
 {
   imports = [
     ./subs/yazi.nix
@@ -24,6 +27,7 @@
   home.packages = with pkgs; [
     dbeaver-bin
     gimp
+    postman9
     slack
   ];
 
