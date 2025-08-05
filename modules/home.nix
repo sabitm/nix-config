@@ -98,14 +98,22 @@ in
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+  # Enable bash
+  programs.bash.enable = true;
+
   # Enable chrome
   programs.google-chrome.enable = true;
 
   # Enable direnv
-  programs.bash.enable = true;
   programs.direnv = {
     enable = true;
     enableBashIntegration = true;
     nix-direnv.enable = true;
+  };
+
+  # Enable zoxide
+  programs.zoxide = {
+    enable = true;
+    enableBashIntegration = true;
   };
 }
