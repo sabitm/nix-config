@@ -34,7 +34,6 @@ in
     dbeaver-bin
     gimp
     postman9
-    slack
   ] ++ extensions;
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
