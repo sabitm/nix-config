@@ -2,6 +2,12 @@
 let
   # Add postman9 package
   postman9 = pkgs.callPackage ./subs/postman9/package.nix {};
+
+  # GNOME extensions
+  extensions = with pkgs.gnomeExtensions; [
+    appindicator
+    removable-drive-menu
+  ];
 in
 {
   imports = [
@@ -29,7 +35,7 @@ in
     gimp
     postman9
     slack
-  ];
+  ] ++ extensions;
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -76,6 +82,8 @@ in
     "org/gnome/desktop/search-providers" = {
       disable-external = true;
     };
+    # Extensions
+    "org/gnome/shell".enabled-extensions = map (ext: ext.extensionUuid) extensions;
   };
 
   # Set GTK theme
