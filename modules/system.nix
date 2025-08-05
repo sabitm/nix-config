@@ -69,6 +69,7 @@
 
   # Allow insecure packages
   nixpkgs.config.permittedInsecurePackages = [
+    # For postman9
     "openssl-1.1.1w"
   ];
 

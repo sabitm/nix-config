@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 let
   # Add postman9 package
-  postman9 = pkgs.callPackage ./subs/postman9/package.nix {};
+  postman9 = pkgs.callPackage ../packages/postman9.nix {};
 
   # GNOME extensions
   extensions = with pkgs.gnomeExtensions; [

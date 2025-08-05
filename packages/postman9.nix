@@ -39,15 +39,9 @@
   libdrm,
   libgbm,
   libglvnd,
-  # It's unknown which version of openssl that postman expects but it seems that
-  # OpenSSL 3+ seems to work fine (cf.
-  # https://github.com/NixOS/nixpkgs/issues/254325). If postman breaks apparently
-  # around OpenSSL stuff then try changing this dependency version.
+  # Postman 9 requires the use of old Openssl 1.1
   openssl_1_1,
   xorg,
-  pname,
-  version,
-  meta,
   copyDesktopItems,
   makeWrapper,
 }:
@@ -66,10 +60,29 @@ let
       };
     }
     .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
-
 in
+
 stdenv.mkDerivation rec {
-  inherit pname version meta;
+  pname = "postman";
+  version = "9.31.0";
+  meta = with lib; {
+    homepage = "https://www.getpostman.com";
+    changelog = "https://www.postman.com/release-notes/postman-app/#${
+      replaceStrings [ "." ] [ "-" ] version
+    }";
+    description = "API Development Environment";
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    license = licenses.postman;
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "aarch64-darwin"
+      "x86_64-darwin"
+    ];
+    maintainers = with maintainers; [
+      sabitm
+    ];
+  };
 
   src = fetchurl {
     url = "https://dl.pstmn.io/download/version/${version}/linux${dist.arch}";
