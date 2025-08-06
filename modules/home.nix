@@ -12,6 +12,7 @@ in
 {
   imports = [
     ./subs/yazi.nix
+    ./subs/zk.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -100,8 +101,8 @@ in
   # Enable bash
   programs.bash.enable = true;
 
-  # Enable chrome
-  programs.google-chrome.enable = true;
+  # Enable bat
+  programs.bat.enable = true;
 
   # Enable direnv
   programs.direnv = {
@@ -109,6 +110,15 @@ in
     enableBashIntegration = true;
     nix-direnv.enable = true;
   };
+
+  # Enable fzf
+  programs.fzf = {
+    enable = true;
+    enableBashIntegration = true;
+  };
+
+  # Enable chrome
+  programs.google-chrome.enable = true;
 
   # Enable zoxide
   programs.zoxide = {
