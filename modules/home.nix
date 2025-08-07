@@ -12,6 +12,7 @@ in
 {
   imports = [
     ./subs/fish.nix
+    ./subs/ghostty.nix
     ./subs/yazi.nix
     ./subs/zk.nix
   ];

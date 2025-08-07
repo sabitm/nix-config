@@ -54,6 +54,11 @@
     EDITOR = "nvim";
   };
 
+  # Exclude GNOME packages
+  environment.gnome.excludePackages = with pkgs; [
+    gnome-console
+  ];
+
   # Enable fish
   programs.fish.enable = true;
 
