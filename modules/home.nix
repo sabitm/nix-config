@@ -11,6 +11,7 @@ let
 in
 {
   imports = [
+    ./subs/fish.nix
     ./subs/yazi.nix
     ./subs/zk.nix
   ];
@@ -84,6 +85,11 @@ in
     };
     # Extensions
     "org/gnome/shell".enabled-extensions = map (ext: ext.extensionUuid) extensions;
+    # Keybinds
+    "org/gnome/desktop/wm/keybindings" = {
+      # Disable alt-space
+      activate-window-menu = [];
+    };
   };
 
   # Set GTK theme
@@ -98,23 +104,19 @@ in
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  # Enable bash
-  programs.bash.enable = true;
-
   # Enable bat
   programs.bat.enable = true;
 
   # Enable direnv
   programs.direnv = {
     enable = true;
-    enableBashIntegration = true;
     nix-direnv.enable = true;
   };
 
   # Enable fzf
   programs.fzf = {
     enable = true;
-    enableBashIntegration = true;
+    enableFishIntegration = true;
   };
 
   # Enable chrome
@@ -123,6 +125,6 @@ in
   # Enable zoxide
   programs.zoxide = {
     enable = true;
-    enableBashIntegration = true;
+    enableFishIntegration = true;
   };
 }

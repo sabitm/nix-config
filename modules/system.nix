@@ -23,6 +23,7 @@
   users.users.sabit = {
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" ];
+    shell = pkgs.fish;
   };
 
   # List packages installed in system profile.
@@ -49,6 +50,9 @@
   environment.variables = {
     EDITOR = "nvim";
   };
+
+  # Enable fish
+  programs.fish.enable = true;
 
   # Enable nix-ld to support traditional FHS
   programs.nix-ld.enable = true;
