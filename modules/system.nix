@@ -9,6 +9,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Change /tmp to use tmpfs
+  boot.tmp.useTmpfs = true;
+
   # Networking
   networking.networkmanager.enable = true;
 
@@ -81,6 +84,8 @@
   nix = {
     settings = {
       auto-optimise-store = true;
+      # Change build-dir to avoid memory exhaustion
+      build-dir = "/var/tmp";
       experimental-features = [ "nix-command" "flakes" ];
     };
     gc = {
