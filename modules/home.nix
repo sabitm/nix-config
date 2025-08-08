@@ -36,6 +36,7 @@ in
   home.packages = with pkgs; [
     dbeaver-bin
     gimp
+    jq
     postman9
   ] ++ extensions;
 
