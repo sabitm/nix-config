@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+sabit_ed="35e193fb-f78f-4372-a617-b33400be006d"
+sabit_rsa="9381f8f2-eeb1-44e2-9b84-b33400be40eb"
+lbox_ed="4c002466-aa69-4987-b70f-b33400fbef32"
+
+# Unlock bitwarden and do export
+eval $(bw unlock | grep export | sed -e 's/^\$ //')
+
+ed_tmp=$(mktemp)
+
+bw get item $sabit_ed >$ed_tmp
+cat $ed_tmp | jq -r '.sshKey.privateKey' >~/.ssh/id_ed25519
+cat $ed_tmp | jq -r '.sshKey.publicKey' >~/.ssh/id_ed25519.pub
+chmod 600 ~/.ssh/id_ed25519
+chmod 644 ~/.ssh/id_ed25519.pub
+
+rsa_tmp=$(mktemp)
+
+bw get item $sabit_rsa >$rsa_tmp
+cat $rsa_tmp | jq -r '.sshKey.privateKey' >~/.ssh/id_rsa
+cat $rsa_tmp | jq -r '.sshKey.publicKey' >~/.ssh/id_rsa.pub
+chmod 600 ~/.ssh/id_rsa
+chmod 644 ~/.ssh/id_rsa.pub
+
+lbox_tmp=$(mktemp)
+
+bw get item $lbox_ed >$lbox_tmp
+cat $lbox_tmp | jq -r '.sshKey.privateKey' | sudo tee /etc/ssh/ssh_host_ed25519_key
+cat $lbox_tmp | jq -r '.sshKey.publicKey' | sudo tee /etc/ssh/ssh_host_ed25519_key.pub
+sudo chmod 600 /etc/ssh/ssh_host_ed25519_key
+sudo chmod 644 /etc/ssh/ssh_host_ed25519_key.pub
