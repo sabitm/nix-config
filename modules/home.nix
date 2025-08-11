@@ -14,6 +14,7 @@ in
     ./subs/fish.nix
     ./subs/ghostty.nix
     ./subs/sops.nix
+    ./subs/rclone.nix
     ./subs/yazi.nix
     ./subs/zk.nix
   ];
