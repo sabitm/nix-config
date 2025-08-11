@@ -1,7 +1,7 @@
-{ config, lib, home, ... }:
+{ config, home, myconf, ... }:
 let
   # Secret dir
-  homeDir = "/home/sabit";
+  homeDir = "/home/${myconf.username}";
   secrets = "${homeDir}/nix-secret";
   configHome = "${homeDir}/.config";
 

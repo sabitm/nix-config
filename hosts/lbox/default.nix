@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, myconf, ... }:
 
 {
   imports =
@@ -13,23 +13,23 @@
   boot.zfs.extraPools = [ "tank0" ];
 
   # Mount ZFS volume filesystem
-  fileSystems."/var/lib/docker" =
-    { device = "/dev/zvol/tank0/arch/DATA/default/docker";
-      fsType = "ext4";
-    };
+  fileSystems."/var/lib/docker" = {
+    device = "/dev/zvol/tank0/arch/DATA/default/docker";
+    fsType = "ext4";
+  };
 
   # Preparing ZFS mountpoint
   system.activationScripts.setupMountDir = {
     deps = [ "users" ];
     text = ''
-      mkdir -p /home/sabit/Downloads
-      chown sabit:users /home/sabit/Downloads
-      mkdir -p /home/sabit/.cache
-      chown sabit:users /home/sabit/.cache
+      mkdir -p /home/${myconf.username}/Downloads
+      chown ${myconf.username}:users /home/${myconf.username}/Downloads
+      mkdir -p /home/${myconf.username}/.cache
+      chown ${myconf.username}:users /home/${myconf.username}/.cache
     '';
   };
 
   # Networking
-  networking.hostName = "lbox";
+  networking.hostName = "${myconf.hostname}";
   networking.hostId = "007f0200";
 }

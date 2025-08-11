@@ -9,7 +9,17 @@
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, ... }: {
+  outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, ... }:
+  let
+    # Personal config
+    myconf = import ./config.nix;
+
+    # Pass additional args
+    moduleArgs = {
+      _module.args = { inherit myconf; };
+    };
+  in
+  {
     nixosConfigurations = {
       lbox = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -19,12 +29,14 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.sabit = ./modules/home.nix;
+            home-manager.users."${myconf.username}" = ./modules/home.nix;
             home-manager.sharedModules = [
               sops-nix.homeManagerModules.sops
+              moduleArgs
             ];
           }
           sops-nix.nixosModules.sops
+          moduleArgs
         ];
       };
     };

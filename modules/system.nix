@@ -1,8 +1,9 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, myconf, ... }:
 
 {
   imports = [
-    ./subs/kanata.nix
+    ./system/gnome.nix
+    ./system/kanata.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -18,35 +19,21 @@
   # Set your time zone.
   time.timeZone = "Asia/Jakarta";
 
-  # Enable GNOME
-  services.desktopManager.gnome.enable = true;
-  services.displayManager.gdm.enable = true;
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.sabit = {
+  users.users."${myconf.username}" = {
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" ];
     shell = pkgs.fish;
   };
 
   # List packages installed in system profile.
-  # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
-    adbfs-rootless
-    android-tools
-    fd
     gcc
     git
-    go
-    lazygit
     neovim
-    nodejs
-    php
     python3
-    ripgrep
     unzip
     wl-clipboard
-    yazi
   ];
 
   # Set environment variable
@@ -54,12 +41,7 @@
     EDITOR = "nvim";
   };
 
-  # Exclude GNOME packages
-  environment.gnome.excludePackages = with pkgs; [
-    gnome-console
-  ];
-
-  # Enable fish
+  # Default shell
   programs.fish.enable = true;
 
   # Enable nix-ld to support traditional FHS

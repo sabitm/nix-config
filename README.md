@@ -24,3 +24,17 @@ And then execute the scripts
 # Print public key of user and host
 ./scripts/get-age-pubkey
 ```
+
+## Edit `config.nix`
+
+Before evaluating nix config, edit `config.nix` according to your needs.
+
+## Running nix config
+
+Build nix config and switch using command below:
+
+```shell
+sudo nixos-rebuild switch --flake .#<name>
+```
+
+Where `<name>` is the name of your configuration.
