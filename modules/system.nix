@@ -76,14 +76,16 @@
   # Enable docker
   virtualisation.docker.enable = true;
 
-  # Allow unfree package
-  nixpkgs.config.allowUnfree = true;
-
-  # Allow insecure packages
-  nixpkgs.config.permittedInsecurePackages = [
-    # For postman9
-    "openssl-1.1.1w"
-  ];
+  # Nixpkgs config
+  nixpkgs.config = {
+    # Allow unfree package
+    allowUnfree = true;
+    # Allow insecure packages
+    permittedInsecurePackages = [
+      # For postman9
+      "openssl-1.1.1w"
+    ];
+  };
 
   # Nix settings
   nix = {
