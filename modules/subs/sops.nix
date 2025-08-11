@@ -28,9 +28,6 @@ in
   sops.age.keyFile = "${configHome}/sops/age/keys.txt";
   # Do not validate sops file
   sops.validateSopsFiles = false;
-  # Set default options
-  sops.defaultSymlinkPath = "/run/user/1000/secrets";
-  sops.defaultSecretsMountPoint = "/run/user/1000/secrets.d";
 
   # Define secrets
   sops.secrets = {
