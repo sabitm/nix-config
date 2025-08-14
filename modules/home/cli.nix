@@ -1,6 +1,11 @@
-{ config, lib, ... }:
+{ config, pkgs, ... }:
 
 {
+  # Add packages
+  home.packages = with pkgs; [
+    dua
+  ];
+
   # Enable bat
   programs.bat.enable = true;
 
