@@ -9,6 +9,7 @@ in
     ./home/cli.nix
     ./home/fish.nix
     ./home/ghostty.nix
+    ./home/git.nix
     ./home/gnome.nix
     ./home/nixpkgs.nix
     ./home/sops.nix

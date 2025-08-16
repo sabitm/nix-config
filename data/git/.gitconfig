@@ -1,0 +1,7 @@
+[user]
+  email = sabitmaulanaa@gmail.com
+  name = sabitm
+[init]
+  defaultBranch = main
+[pull]
+  ff = only
