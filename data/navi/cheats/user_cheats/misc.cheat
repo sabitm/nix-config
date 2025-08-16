@@ -1,0 +1,16 @@
+% miscellaneous
+
+# remove broken symlinks in current directory
+find . -xtype l -delete
+
+# strip binary symbols from file
+tr -cd '\11\12\15\40-\176' < <file_with_binary_chars> > <output_name>
+
+# example of jq string interpolation
+jq -r '.topCrop | "\(.width)x\(.height)+\(.x)+\(.y)"'
+
+# strace with file trace
+strace -e trace=%file
+
+$ source_file: ls
+$ file_with_binary_chars: ls

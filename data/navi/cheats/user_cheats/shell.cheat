@@ -1,0 +1,7 @@
+% shell
+
+# set internal field separator to split on newline (don't forget to unset afterwards)
+IFS=$'\n'
+
+# convert hexadecimal to decimal
+echo $((16#<value>))

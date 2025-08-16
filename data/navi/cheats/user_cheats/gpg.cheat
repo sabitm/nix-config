@@ -1,0 +1,35 @@
+% gnupg
+
+# export public key
+gpg --export --armor --output <public_key_out> <user_id>
+
+# export private key
+gpg --export-secret-keys --armor --output <privkey_asc_out> <user_id>
+
+# import exported private key
+gpg --import <privkey_asc>
+
+# encrypt file to recipient using asymmetric key
+gpg --recipient <user_id> --encrypt <file>
+
+# decrypt file using asymmetric or symmetric key
+gpg --output <output> --decrypt <encrypted_file>
+
+# encrypt file using symmetric key
+gpg -c --s2k-cipher-algo AES256 --s2k-digest-algo SHA512 --s2k-count 65536 <file>
+
+# encrypt directory using symmetric key
+gpgtar -c --s2k-cipher-algo AES256 --s2k-digest-algo SHA512 --s2k-count 65536 --output <folder>.gpg <folder>
+
+# encrypt directory to recipient using asymmetric key
+gpgtar --recipient <user_id> --encrypt --output <folder>.gpg <folder>
+
+# decrypt directory using asymmetric or symmetric key
+gpgtar --decrypt <encrypted_folder>
+
+$ file: find -maxdepth 1 -type f
+$ folder: find -maxdepth 1 -type d
+$ encrypted_file: find -maxdepth 1 -type f
+$ encrypted_folder: find -maxdepth 1 -type f
+$ privkey_asc: find -maxdepth 1 -type f
+$ user_id: gpg --list-keys | grep uid | cut -d'<' -f2 | sed 's/>//'

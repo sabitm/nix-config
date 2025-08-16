@@ -1,0 +1,7 @@
+% nix
+
+# nix get hash from url
+nix-prefetch-url --type sha256 "<url>"
+
+# nix convert sha256 hash to SRI
+nix hash convert --hash-algo sha256 "<hash>"

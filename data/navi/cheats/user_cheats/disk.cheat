@@ -1,0 +1,45 @@
+% disk
+
+# burn iso to usb drive using dd
+sudo dd bs=4M if="<input_image>" of=<out_dev_disk> conv=fdatasync status=progress
+
+# wipe partition using dd
+sudo dd if=/dev/zero of=<out_dev_disk> bs=4096 count=<count> status=progress
+
+# create new partition using sgdisk
+  # specify 0 for start to start from next available free space
+  # specify 0 end for entire disk and +100G for 100GB size
+  # partition type: EF00 for EFI, 8300 for Linux, BF00 & BE00 for Solaris Root and Boot
+sudo sgdisk -n <partition_number>:<start>:<end> -t <partition_number>:<partition_type> <dev>
+
+# wipe partition/disk using wipefs and sgdisk
+sudo wipefs -a <dev>; sudo sgdisk --zap-all <dev>
+
+# delete partition using sgdisk
+sudo sgdisk -d <partition_number> <dev>
+
+# format partition to FAT32 using mkfs.vfat
+sudo mkfs.vfat -F32 <dev>
+
+# create a block device from file and set loop device
+fallocate -l <size> <file_name>.img; \
+sudo losetup --find --partscan <file_name>.img
+
+# remove loop device
+sudo losetup -d <dev>
+
+# mount a device using gio
+gio mount <device>
+
+# mount a device using udisksctl
+udisksctl mount -b <dev>
+
+
+$ dev: ls /dev/*
+$ start: echo -e "0\n"
+$ end: echo -e "0\n"
+$ partition_type: echo -e "EF00\n8300\nBF00\nBE00\n"
+$ input_image: ls
+$ out_dev_disk: ls /dev/sd*
+$ device: gio mount -li | grep default_location | sed -e 's/.*=//' | sort -u && echo
+$ size: echo -e "10G\n"

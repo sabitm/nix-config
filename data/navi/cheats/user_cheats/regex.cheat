@@ -1,0 +1,7 @@
+% regex
+
+# Negative lookahead assertion example: Find Message that is not "ok", "invalid", "unauthorized", "internal"
+rgx -i '\&pb.GeneralResp.*\n.*\n.*Message: *"(?!ok|invalid|unauthorized|internal)'
+
+# Negative lookbehind assertion example: Find database settings that do not start with "select"
+rgx -i '^(?:(?!select).)*db.settings'

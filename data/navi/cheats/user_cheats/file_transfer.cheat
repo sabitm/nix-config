@@ -1,0 +1,13 @@
+% file transfer
+
+# mount cloud storage
+rclone mount <remote> ~/Remote/Cloud
+
+# mount cloud storage with vfs file caching (normal file system compat)
+rclone mount --vfs-cache-mode writes <remote> ~/Remote/Cloud
+
+# copy files to cloud storage
+rclone copy --progress <file> <remote>
+
+$ file: ls
+$ remote: rclone listremotes

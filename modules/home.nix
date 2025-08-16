@@ -12,6 +12,7 @@ in
     ./home/git.nix
     ./home/gnome.nix
     ./home/misc.nix
+    ./home/navi.nix
     ./home/nixpkgs.nix
     ./home/sops.nix
     ./home/rclone.nix

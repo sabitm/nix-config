@@ -1,0 +1,9 @@
+% networking
+
+# scan active host on a network
+sudo nmap -sn <network_ip>/<netmask>
+
+# list processes associated on specific IPv4 port
+lsof -i4
+
+$ network_ip: ip r | grep '^1' | cut -d' ' -f1

@@ -1,0 +1,10 @@
+% archlinux
+
+# makepkg build with skip integration option
+makepkg -s --skipinteg
+
+# updating aur .srcinfo
+makepkg --printsrcinfo > .SRCINFO
+
+# check pacman recently installed packages
+ls -lAtrh /var/lib/pacman/local/

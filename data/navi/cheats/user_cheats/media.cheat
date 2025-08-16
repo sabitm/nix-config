@@ -1,0 +1,59 @@
+% media
+
+# blur an image with imagemagick
+magick <image> -blur 0x64 <output_name>
+
+# crop an image using imagemagick
+magick <image> -crop <width>x<height>+<left>+<top> <output_name>.<image_type>
+
+# extract multiple images from video
+ffmpeg -ss <mm>:<ss> -i "<source_video>" -vf fps=<frame_rate> -q:v 0 img%3d.jpg
+
+# extrack single frame from video at specified time
+ffmpeg -ss <mm>:<ss> -i "<source_video>" -vframes 1 -q:v 0 img%3d.jpg
+
+# convert video to gif using ffmpeg
+ffmpeg -i "<source_video>" -r <frame_rate> -vf "scale=<scale>:-1,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -ss <start_time> -to <finish_time> <output_name>.gif
+
+# encode video to h.265 using ffmpeg
+ffmpeg -i "<source_video>" -vcodec libx265 -crf 28 <output_name>.<output_ext>
+
+# encode video to h.265 using ffmpeg with resolution option
+ffmpeg -i "<source_video>" -vf scale=-1:<height_res> -vcodec libx265 -crf 28 <output_name>.<output_ext>
+
+# encode video to h.265 using ffmpeg with resolution and bitrate option
+ffmpeg -i "<source_video>" -vf scale=-1:<height_res> -b:v <bitrate_in_kilo>k -vcodec libx265 -crf 28 <output_name>.<output_ext>
+
+# encode video to h.264 using ffmpeg with resolution and bitrate option
+ffmpeg -i "<source_video>" -vf scale=-1:<height_res> -b:v <bitrate_in_kilo>k -vcodec h264 <output_name>.<output_ext>
+
+# cut video at specified time (hh:mm:ss) until specified time (hh:mm:ss)
+ffmpeg -i "<source_video>" -ss <start_hh>:<start_00>:<start_ss> -to <to_hh>:<to_mm>:<to_ss> -async 1 <output_name>.<output_ext>
+
+# play shuffled music with mpv
+IFS=$'\n'; for i in $(ls | shuf); do mpv "$i"; done
+
+# get the dpi of an image
+identify -format '%x,%y\n' -units PixelsPerInch <image>
+
+# resize-padding an image to square size
+magick "<image>" -resize <to_size>x<to_size> -gravity center -background <background> -extent <to_size>x<to_size> <output>
+
+# resize image using only width and keep the aspect ratio with quality opt
+magick -resize <width>x <image> -quality <quality> <output>
+
+# inverse/negate the image color
+magick <image> -channel RGB -negate <output>
+
+# map one color to another on an image
+magick <image> -fuzz 15% -fill "<color_target>" -opaque "<color_source>" <output>
+
+$ image: ls
+$ source_video: ls
+$ start_time: echo -e "00:00:00\n"
+$ finish_time: echo -e "00:00:01\n"
+$ scale: echo -e "360\n"
+$ to_size: identify -format '%w\n%h' "<image>" | sort -nr | head -n 1
+$ background: echo -e "white\nblack\n"
+$ quality: echo -e "90\n"
+$ color_target: echo -e "#04032b\n"

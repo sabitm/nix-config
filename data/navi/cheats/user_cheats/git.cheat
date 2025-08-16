@@ -1,0 +1,50 @@
+% git
+
+# undo last git commit and left changes unstaged
+git reset --soft HEAD~1
+
+# revert two last commit without committing
+git revert --no-commit HEAD~2..
+
+# attach current commit to a tag
+git tag -a v<tag> -m "v<tag>" -f
+
+# remove a remote tag
+git push origin :refs/tags/v<tag>
+
+# push local commit to remote tag
+git push --follow-tags
+
+# delete local branch
+git branch -d <branch>
+
+# delete local remote branch
+git branch -d -r <lrbranch>
+
+# delete remote branch
+git push origin --delete <branch>
+
+# create a new branch and checkout
+git checkout -b <branch_name>
+
+# create a new branch without checkout
+git branch <branch_name>
+
+# rename current branch
+git branch -m <new_name>
+
+# add all staged changes to the last commit
+git commit --amend --no-edit
+
+# clean all file not in your repo part
+git clean -xffd
+
+# shallow init git submodule
+git submodule update --init --depth=1
+
+# submodule foreach execute command
+git submodule foreach --recursive git clean -xffd
+
+
+$ branch: git branch | cut -c3-
+$ lrbranch: git branch -r | cut -c3-

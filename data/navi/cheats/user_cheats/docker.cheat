@@ -1,0 +1,4 @@
+% docker
+
+# Remove all unused Docker images, networks, containers, and volumes
+docker system prune -a --volumes

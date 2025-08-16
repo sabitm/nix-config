@@ -1,0 +1,9 @@
+% archiver
+
+# creating tar.gz archive with sparse efficiency
+tar -cSvzf <out_name>.tar.gz <source_file>
+
+# extract a package using bsdtar
+mkdir "<source_file>.dir"; bsdtar -xf <source_file> -C "<source_file>.dir"
+
+$ source_file: ls

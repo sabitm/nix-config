@@ -1,0 +1,17 @@
+% desktop
+
+# change wallpaper using gsettings
+gsettings set org.gnome.desktop.background picture-uri 'file:///<path_to_image>'
+
+# change default program for mime type
+xdg-mime default <desktop_file_name> <mime_type>
+
+# execute scrcpy with 500k bitrate and 600p resolution
+scrcpy --shortcut-mod=lctrl -b500K -m600 > /dev/null 2>&1 &
+
+# loop microphone audio to speaker
+pactl load-module module-loopback latency_msec=1
+
+$ path_to_image: ls $PWD/*
+$ desktop_file_name: echo -e "org.gnome.eog.desktop\n"
+$ mime_type: echo -e "image/webp\n"

@@ -1,0 +1,32 @@
+% document
+
+# convert document to another type using pandoc
+pandoc -o "<source_file>".<target_file_type> -t <target_file_type> "<source_file>"
+
+# convert document to docx using pandoc
+pandoc -o "<source_file>".docx -t docx --reference-doc "<reference_doc>" "<source_file>"
+
+# split pdf at each num page
+qpdf --split-pages=<num> "<input_pdf>" out_%d.pdf
+
+# extract pdf at specified page (single, or multipage using '-')
+qpdf --empty --pages "<input_pdf>" <page> -- <output_name>.pdf
+
+# merge multiple pdf pages into single page using pdfjam (in this example 4 pages in single sheet)
+pdfjam "<input_pdf_1>" "<input_pdf_x>" --nup 2x2 --no-landscape --outfile <output_pdf>.pdf
+
+# convert pdf to png image using poppler's pdftoppm
+pdftoppm "<input_pdf>" <outputname> -png -f <page> -singlefile
+
+# merge pdf to single file
+pdfunite "<input_pdf>" <output>.pdf
+
+# convert image to pdf with page size
+magick "<image>" -background white -density 72 -page a4 <output_name>.pdf
+
+$ image: ls
+$ source_file: ls
+$ reference_doc: ls
+$ input_pdf: ls *.pdf
+$ input_pdf_1: ls *.pdf
+$ input_pdf_x: ls *.pdf
