@@ -4,6 +4,8 @@
   # Add packages
   home.packages = with pkgs; [
     dua
+    mpv
+    yt-dlp-light
   ];
 
   # Enable bat

@@ -14,6 +14,7 @@ in
     ./home/sops.nix
     ./home/rclone.nix
     ./home/yazi.nix
+    ./home/yt-viewer.nix
     ./home/zk.nix
   ];
 
