@@ -7,7 +7,7 @@
     enableFishIntegration = true;
     settings = {
       adjust-cell-width = "-6%";
-      font-family = "MesloLGS NF";
+      font-family = ''"MesloLGS NF"'';
       font-size = 12;
       theme = "GruvboxDarkHard";
       window-decoration = "none";

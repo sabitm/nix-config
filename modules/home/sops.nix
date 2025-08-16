@@ -31,7 +31,6 @@ in
 
   # Define secrets
   sops.secrets = {
-    rclone = rclone;
-    yt-viewer = yt-viewer;
+    inherit rclone yt-viewer;
   };
 }

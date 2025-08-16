@@ -4,7 +4,7 @@ let
     # remove fish welcome greeting
     set -g fish_greeting ""
 
-    # set helix as editor and less as pager
+    # set nvim as editor and less as pager
     set -x EDITOR nvim
     set -x VISUAL nvim
     set -x PAGER less
