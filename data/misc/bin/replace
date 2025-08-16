@@ -1,0 +1,103 @@
+#!/usr/bin/env python3
+import argparse
+import re
+
+
+def edit_file_content(file_content):
+    # Regular expression to match the format
+    pattern = re.compile(r"^(.+?)[:-](\d+?)[:-](\s*.+)$")
+    # Regular expression to ignore some pattern
+    ignore = re.compile(r"^--$")
+    # Placeholder for delete line
+    delete = ":::delete:::"
+
+    # parse replace file and build hashmap for more efficient replacing
+    map_replace: dict[str, list[tuple[int, str]]] = {}
+    for line in file_content.splitlines():
+        # Skip lines that match the ignore pattern
+        if ignore.match(line):
+            continue
+
+        match = pattern.match(line)
+        if match:
+            file_path, line_number, new_content = match.groups()
+            if file_path not in map_replace:
+                map_replace[file_path] = []
+            map_replace[file_path].append((int(line_number), new_content))
+        else:
+            print(f"Invalid format: {line}")
+
+    for file_path, items in map_replace.items():
+        # Read the file
+        try:
+            with open(file_path, "r") as file:
+                lines = file.readlines()
+        except FileNotFoundError:
+            print(f"File not found: {file_path}")
+            continue
+        except Exception as e:
+            print(f"Error reading file {file_path}: {e}")
+            continue
+
+        # Replace the lines
+        offset = 0
+        for item in items:
+            line_number, new_content = item
+            # Split new content by newline
+            list_content = new_content.split("\\n")
+            # Add insert offset
+            line_number += offset
+            # Check if the line number is valid
+            if line_number <= len(lines):
+                # Replace or insert the line content
+                if len(list_content) <= 1:
+                    lines[line_number - 1] = new_content + "\n"
+                else:
+                    lines[line_number - 1] = list_content[0] + "\n"
+                    for i in range(1, len(list_content)):
+                        lines.insert(line_number + i - 1, list_content[i] + "\n")
+                        offset += 1
+            else:
+                print(f"Line number {line_number} is out of range for file {file_path}")
+
+        # Remove lines that contain delete placeholder
+        lines = [line for line in lines if delete not in line]
+
+        # Write the changes back to the file
+        try:
+            with open(file_path, "w") as file:
+                file.writelines(lines)
+        except Exception as e:
+            print(f"Error writing to file {file_path}: {e}")
+
+
+def main():
+    # Set up argument parser
+    parser = argparse.ArgumentParser(
+        description="Edit files based on a specified format."
+    )
+    parser.add_argument(
+        "input_file",
+        type=str,
+        help="Path to the input file containing the edit instructions.",
+    )
+
+    args = parser.parse_args()
+
+    # Read the input file content
+    try:
+        with open(args.input_file, "r") as file:
+            file_content = file.read()
+    except FileNotFoundError:
+        print(f"Input file not found: {args.input_file}")
+        return
+    except Exception as e:
+        print(f"Error reading input file {args.input_file}: {e}")
+        return
+
+    # Edit the files based on the content
+    edit_file_content(file_content)
+
+
+if __name__ == "__main__":
+    main()

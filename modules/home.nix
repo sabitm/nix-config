@@ -11,6 +11,7 @@ in
     ./home/ghostty.nix
     ./home/git.nix
     ./home/gnome.nix
+    ./home/misc.nix
     ./home/nixpkgs.nix
     ./home/sops.nix
     ./home/rclone.nix
