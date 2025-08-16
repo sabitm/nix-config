@@ -1,0 +1,33 @@
+# misc
+alias ae='aerc'
+alias aider='aider --no-git'
+alias aidera='aider --no-git --architect'
+alias justd='just --working-directory . --justfile ~/Downloads/Justfile'
+alias rgx='rg -n -U --pcre2'
+alias tslen='gtranslate -s en -t id'
+alias tslid='gtranslate -s id -t en'
+alias yv='youtube-viewer'
+alias yva='youtube-viewer -a'
+
+# git related
+alias g.='lazygit'
+alias ga='git add'
+alias gb='git branch'
+alias gc='git commit'
+alias gcm='git commit -m'
+alias gco='git checkout'
+alias gd='git diff'
+alias gdf='git diff --no-index'
+alias gl='git log'
+alias gp='git pull'
+alias gps='git push'
+alias grb='git rebase'
+alias grbi='git rebase -i'
+alias gs='git status'
+
+# dir and files
+alias dua='dua -A'
+alias l='ls -lAtrh'
+alias la='ls -A'
+alias ll='ls -ltrh'
+alias lsp='find "$PWD" -maxdepth 1'
