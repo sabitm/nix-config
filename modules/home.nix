@@ -1,8 +1,5 @@
 { config, pkgs, myconf, ... }:
-let
-  # Add postman9 package
-  postman9 = pkgs.callPackage ../packages/postman9.nix {};
-in
+
 {
   imports = [
     ./home/chrome.nix
@@ -37,10 +34,7 @@ in
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = with pkgs; [
-    dbeaver-bin
-    postman9
-  ];
+  home.packages = with pkgs; [];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
