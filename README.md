@@ -1,6 +1,6 @@
-# Getting Started
+## Getting Started
 
-## Getting SSH keys from bitwarden-cli
+### Getting SSH keys from bitwarden-cli
 
 Activate nix-shell with bitwarden-cli and jq package
 
@@ -25,11 +25,11 @@ And then execute the scripts
 ./scripts/get-age-pubkey
 ```
 
-## Edit `config.nix`
+### Edit `config.nix`
 
 Before evaluating nix config, edit `config.nix` according to your needs.
 
-## Running nix config
+### Running nix config
 
 Build nix config and switch using command below:
 
@@ -38,3 +38,11 @@ sudo nixos-rebuild switch --flake .#<name>
 ```
 
 Where `<name>` is the name of your configuration.
+
+## Installing Packages
+
+To install packages from `packages` directory, simply head to one of package directory and run:
+
+```shell
+nix profile install .#<package-name>
+```
