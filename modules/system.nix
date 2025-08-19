@@ -13,6 +13,9 @@
   # Change /tmp to use tmpfs
   boot.tmp.useTmpfs = true;
 
+  # Enable zram
+  zramSwap.enable = true;
+
   # Networking
   networking.networkmanager.enable = true;
 
