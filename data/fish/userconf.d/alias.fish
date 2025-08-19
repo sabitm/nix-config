@@ -2,6 +2,8 @@
 alias ae='aerc'
 alias aider='aider --no-git'
 alias aidera='aider --no-git --architect'
+alias df='df -h'
+alias free='free -h'
 alias justd='just --working-directory . --justfile ~/Downloads/Justfile'
 alias rgx='rg -n -U --pcre2'
 alias tslen='gtranslate -s en -t id'
