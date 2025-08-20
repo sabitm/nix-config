@@ -10,6 +10,7 @@
     ./home/gnome.nix
     ./home/misc.nix
     ./home/navi.nix
+    ./home/neovim.nix
     ./home/nixpkgs.nix
     ./home/sops.nix
     ./home/rclone.nix
