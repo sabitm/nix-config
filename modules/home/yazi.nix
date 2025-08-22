@@ -6,6 +6,7 @@
     enable = true;
     plugins = {
       smart-switch = ../../data/yazi/plugins/smart-switch.yazi;
+      open-with-cmd = ../../data/yazi/plugins/open-with-cmd.yazi;
     };
     flavors = {
       gruvbox-dark = ../../data/yazi/plugins/gruvbox-dark.yazi;
