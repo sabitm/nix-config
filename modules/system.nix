@@ -31,10 +31,8 @@
 
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
-    gcc
     git
     neovim
-    python3
     unzip
     wl-clipboard
   ];
