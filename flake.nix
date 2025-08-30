@@ -18,6 +18,10 @@
     moduleArgs = {
       _module.args = { inherit myconf; };
     };
+
+    # Supported systems
+    systems = [ "x86_64-linux" ];
+    allSystems = nixpkgs.lib.genAttrs systems;
   in
   {
     nixosConfigurations = {
@@ -40,5 +44,17 @@
         ];
       };
     };
+
+    packages = allSystems (system:
+      let pkgs = nixpkgs.legacyPackages.${system};
+      in {
+        freedownloadmanager = pkgs.callPackage ./packages/freedownloadmanager.nix {};
+        gtranslate = pkgs.callPackage ./packages/gtranslate.nix {};
+        kiro = pkgs.callPackage ./packages/kiro.nix {
+          vscode-generic = (pkgs.path + "/pkgs/applications/editors/vscode/generic.nix");
+        };
+        postman9 = pkgs.callPackage ./packages/postman9.nix {};
+      }
+    );
   };
 }
