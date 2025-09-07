@@ -1,4 +1,4 @@
 {
   username = "sabit";
-  hostname = "lbox";
+  hostname = "vbox";
 }

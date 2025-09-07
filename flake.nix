@@ -25,6 +25,23 @@
   in
   {
     nixosConfigurations = {
+      min = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/min
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users."${myconf.username}" = ./modules/home-min.nix;
+            home-manager.sharedModules = [
+              moduleArgs
+            ];
+          }
+          moduleArgs
+        ];
+      };
+
       lbox = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
