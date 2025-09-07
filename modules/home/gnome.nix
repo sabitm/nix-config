@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
   # GNOME extensions
   extensions = with pkgs.gnomeExtensions; [
@@ -45,6 +45,27 @@ in
       volume-down = ["<Super>F11"];
       volume-up = ["<Super>F12"];
       volume-mute = ["<Super>F10"];
+    };
+    # Night light
+    "org/gnome/settings-daemon/plugins/color" = {
+      night-light-enabled = true;
+      night-light-temperature = (lib.hm.gvariant.mkUint32 4700);
+    };
+    # Desktop background
+    "org/gnome/desktop/background" = {
+      color-shading-type = "solid";
+      picture-options = "zoom";
+      picture-uri = "file:///run/current-system/sw/share/backgrounds/gnome/blobs-l.svg";
+      picture-uri-dark = "file:///run/current-system/sw/share/backgrounds/gnome/blobs-d.svg";
+      primary-color = "#241f31";
+      secondary-color = "#000000";
+    };
+    "org/gnome/desktop/screensaver" = {
+      color-shading-type = "solid";
+      picture-options = "zoom";
+      picture-uri = "file:///run/current-system/sw/share/backgrounds/gnome/blobs-l.svg";
+      primary-color = "#241f31";
+      secondary-color = "#000000";
     };
     # Preferences
     "org/gnome/desktop/wm/preferences" = {
