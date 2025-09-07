@@ -22,62 +22,43 @@
     # Supported systems
     systems = [ "x86_64-linux" ];
     allSystems = nixpkgs.lib.genAttrs systems;
+
+    # Host configuration
+    optional = nixpkgs.lib.optional;
+    hostConfig = { hostModule, homeModule, withSops ? true, ... }:
+      nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          hostModule
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users."${myconf.username}" = homeModule;
+            home-manager.sharedModules = [
+              moduleArgs
+            ] ++ optional withSops sops-nix.homeManagerModules.sops;
+          }
+          moduleArgs
+        ] ++ optional withSops sops-nix.nixosModules.sops;
+      };
   in
   {
     nixosConfigurations = {
-      min = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./hosts/min
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users."${myconf.username}" = ./modules/home-min.nix;
-            home-manager.sharedModules = [
-              moduleArgs
-            ];
-          }
-          moduleArgs
-        ];
+      min = hostConfig {
+        hostModule = ./hosts/min;
+        homeModule = ./modules/home-min.nix;
+        withSops = false;
       };
 
-      lbox = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./hosts/lbox
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users."${myconf.username}" = ./modules/home.nix;
-            home-manager.sharedModules = [
-              sops-nix.homeManagerModules.sops
-              moduleArgs
-            ];
-          }
-          sops-nix.nixosModules.sops
-          moduleArgs
-        ];
+      lbox = hostConfig {
+        hostModule = ./hosts/lbox;
+        homeModule = ./modules/home.nix;
       };
 
-      vbox = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./hosts/vbox
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users."${myconf.username}" = ./modules/home.nix;
-            home-manager.sharedModules = [
-              sops-nix.homeManagerModules.sops
-              moduleArgs
-            ];
-          }
-          sops-nix.nixosModules.sops
-          moduleArgs
-        ];
+      vbox = hostConfig {
+        hostModule = ./hosts/vbox;
+        homeModule = ./modules/home.nix;
       };
     };
 
