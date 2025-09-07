@@ -60,6 +60,25 @@
           moduleArgs
         ];
       };
+
+      vbox = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/vbox
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users."${myconf.username}" = ./modules/home.nix;
+            home-manager.sharedModules = [
+              sops-nix.homeManagerModules.sops
+              moduleArgs
+            ];
+          }
+          sops-nix.nixosModules.sops
+          moduleArgs
+        ];
+      };
     };
 
     packages = allSystems (system:
