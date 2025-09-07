@@ -7,6 +7,7 @@ box_ed="4c002466-aa69-4987-b70f-b33400fbef32"
 # Unlock bitwarden and do export
 eval $(bw unlock | grep export | sed -e 's/^\$ //')
 
+mkdir -p ~/.ssh
 ed_tmp=$(mktemp)
 
 bw get item $sabit_ed >$ed_tmp
