@@ -7,9 +7,11 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, nix-index-database, ... }:
   let
     # Personal config
     myconf = import ./config.nix;
@@ -71,6 +73,7 @@
         kiro = pkgs.callPackage ./packages/kiro.nix {
           vscode-generic = (pkgs.path + "/pkgs/applications/editors/vscode/generic.nix");
         };
+        nix-index-database = nix-index-database.packages.${system}.default;
         postman9 = pkgs.callPackage ./packages/postman9.nix {};
       }
     );
