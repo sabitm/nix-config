@@ -1,0 +1,4 @@
+{
+  username = "sabit";
+  hostname = "lbox";
+}

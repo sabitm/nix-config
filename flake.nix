@@ -9,12 +9,15 @@
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+    # Personal config
+    myconfig.url = "path:./config.nix";
+    myconfig.flake = false;
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, nix-index-database, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, sops-nix, nix-index-database, myconfig, ... }:
   let
-    # Personal config
-    myconf = import ./config.nix;
+    # Import personal config
+    myconf = import myconfig;
 
     # Pass additional args
     moduleArgs = {

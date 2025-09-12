@@ -20,6 +20,18 @@
         "type": "github"
       }
     },
+    "myconfig": {
+      "flake": false,
+      "locked": {
+        "path": "./config.nix",
+        "type": "path"
+      },
+      "original": {
+        "path": "./config.nix",
+        "type": "path"
+      },
+      "parent": []
+    },
     "nix-index-database": {
       "inputs": {
         "nixpkgs": [
@@ -59,6 +71,7 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+        "myconfig": "myconfig",
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs",
         "sops-nix": "sops-nix"
