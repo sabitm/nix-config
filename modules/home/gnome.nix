@@ -81,4 +81,10 @@ in
       gtk-application-prefer-dark-theme = true;
     };
   };
+  gtk.gtk4 = {
+    enable = true;
+    extraConfig = {
+      gtk-application-prefer-dark-theme = true;
+    };
+  };
 }
