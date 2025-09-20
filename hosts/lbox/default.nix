@@ -31,5 +31,5 @@
 
   # Networking
   networking.hostName = "${myconf.hostname}";
-  networking.hostId = "007f0200";
+  networking.hostId = "8425e349";
 }
