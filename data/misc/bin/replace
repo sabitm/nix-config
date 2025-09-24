@@ -5,7 +5,7 @@ import re
 
 def edit_file_content(file_content):
     # Regular expression to match the format
-    pattern = re.compile(r"^(.+?)[:-](\d+?)[:-](\s*.+)$")
+    pattern = re.compile(r"^(.+?)[:-](\d+?)[:-](\s*.+)?$")
     # Regular expression to ignore some pattern
     ignore = re.compile(r"^--$")
     # Placeholder for delete line
@@ -23,6 +23,8 @@ def edit_file_content(file_content):
             file_path, line_number, new_content = match.groups()
             if file_path not in map_replace:
                 map_replace[file_path] = []
+            if new_content is None:
+                new_content = ""
             map_replace[file_path].append((int(line_number), new_content))
         else:
             print(f"Invalid format: {line}")
