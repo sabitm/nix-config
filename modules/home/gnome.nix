@@ -37,6 +37,10 @@ in
       move-to-workspace-left = ["<Shift><Super>j"];
       switch-to-workspace-left = ["<Super>j"];
       switch-to-workspace-right = ["<Super>k"];
+      switch-windows = ["<Alt>Tab"];
+      switch-windows-backward = ["<Shift><Alt>Tab"];
+      switch-applications = [];
+      switch-applications-backward = [];
     };
     "org/gnome/settings-daemon/plugins/media-keys" = {
       # Disable meta-l keybinding for locking the screen
