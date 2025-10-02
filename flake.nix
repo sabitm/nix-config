@@ -16,18 +16,21 @@
     # Personal config
     myconf = import ./config.nix;
 
-    # Pass additional args
-    moduleArgs = {
-      _module.args = { inherit myconf; };
-    };
-
     # Supported systems
     systems = [ "x86_64-linux" ];
     allSystems = nixpkgs.lib.genAttrs systems;
 
     # Host configuration
     optional = nixpkgs.lib.optional;
-    hostConfig = { hostModule, homeModule, withSops ? true, ... }:
+    hostConfig = { hostModule, homeModule, hostname, withSops ? true, ... }:
+      let
+        # Pass additional args
+        moduleArgs = {
+          _module.args = {
+            myconf = myconf // { inherit hostname; };
+          };
+        };
+      in
       nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
@@ -50,17 +53,20 @@
       min = hostConfig {
         hostModule = ./hosts/min;
         homeModule = ./modules/home-min.nix;
+        hostname = "min";
         withSops = false;
       };
 
       lbox = hostConfig {
         hostModule = ./hosts/lbox;
         homeModule = ./modules/home.nix;
+        hostname = "lbox";
       };
 
       vbox = hostConfig {
         hostModule = ./hosts/vbox;
         homeModule = ./modules/home.nix;
+        hostname = "vbox";
       };
     };
 
