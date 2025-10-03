@@ -1,7 +1,10 @@
 % networking
 
-# scan active host on a network
-sudo nmap -sn <network_ip>/<netmask>
+# fast scan active host on a network without port
+sudo nmap -n -T4 -sn <network_ip>/<netmask>
+
+# fast scan active host on a network with port
+sudo nmap -n -T4 -F <network_ip>/<netmask>
 
 # list processes associated on specific IPv4 port
 lsof -i4

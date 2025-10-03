@@ -5,3 +5,6 @@ nix-prefetch-url --type sha256 "<url>"
 
 # nix convert sha256 hash to SRI
 nix hash convert --hash-algo sha256 "<hash>"
+
+# open port on nixos
+sudo nixos-firewall-tool open tcp 8080
