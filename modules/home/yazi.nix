@@ -7,6 +7,7 @@
     plugins = {
       smart-switch = ../../data/yazi/plugins/smart-switch.yazi;
       open-with-cmd = ../../data/yazi/plugins/open-with-cmd.yazi;
+      mime-ext = ../../data/yazi/plugins/mime-ext.yazi;
     };
     flavors = {
       gruvbox-dark = ../../data/yazi/plugins/gruvbox-dark.yazi;
