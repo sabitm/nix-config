@@ -128,6 +128,9 @@ r = 'zk new --no-input "$ZK_NOTEBOOK_DIR/journal/research" --title "$@"'
 # Create project note
 pr = 'zk new --no-input "$ZK_NOTEBOOK_DIR/journal/projects" --title "$@"'
 
+# Init notebook
+i = 'rclone copy dbox:DropsyncFiles/Notebook "$ZK_NOTEBOOK_DIR"'
+
 # Push notes to cloud
 p = 'rclone sync --exclude "notebook.db" "$ZK_NOTEBOOK_DIR" dbox:DropsyncFiles/Notebook'
 
