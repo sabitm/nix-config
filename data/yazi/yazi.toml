@@ -11,6 +11,6 @@ run  = "noop"
 
 [[plugin.prepend_fetchers]]
 id = "mime"
-name = "*"
+name = "**/mnt/**"
 run  = "mime-ext"
 prio = "high"
