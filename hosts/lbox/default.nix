@@ -29,6 +29,21 @@
     '';
   };
 
+  # Enable v4l2loopback kernel module
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+    v4l2loopback
+  ];
+  boot.kernelModules = [ "v4l2loopback" ];
+
+  # Add v4l2loopback devices
+  boot.extraModprobeConfig = ''
+    options v4l2loopback devices=1 video_nr=1 card_label="DroidCam" exclusive_caps=1
+  '';
+
+  # Open ports for Wi-Fi connection
+  networking.firewall.allowedTCPPorts = [ 4747 ];
+  networking.firewall.allowedUDPPorts = [ 4747 ];
+
   # Networking
   networking.hostName = "${myconf.hostname}";
   networking.hostId = "8425e349";
