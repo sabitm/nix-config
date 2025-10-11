@@ -3,7 +3,7 @@ prepend_keymap = [
 	{ on = "Q", run = "quit",                         desc = "Quit the process" },
 	{ on = "q", run = "quit --no-cwd-file",           desc = "Quit the process without outputting cwd-file" },
 
-	{ on = "!", run = 'shell "$SHELL" --block',            desc = "Open shell here" },
+	{ on = "!", run = 'shell "$SHELL" --block',     desc = "Open shell here" },
 	{ on = "O", run = 'plugin open-with-cmd block', desc = "Open with in terminal" },
 
 	{ on = "2", run = "plugin smart-switch 1", desc = "Switch or create tab 2" },
@@ -13,6 +13,8 @@ prepend_keymap = [
 	{ on = [ "g", "/" ], run = "cd /",          desc = "Go to root dir" },
 	{ on = [ "g", "b" ], run = 'cd "$ORIGIN"',  desc = "Go back to origin dir" },
 	{ on = [ "g", "l" ], run = 'cd "~/.local"', desc = "Go to ~/.local" },
+
+	{ on = [ "c", "y" ], run = 'shell -- for path in "$@"; do echo "file://$path"; done | wl-copy -t text/uri-list', desc = "Copy to clipboard" },
 ]
 
 [input]
