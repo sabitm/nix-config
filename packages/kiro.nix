@@ -14,8 +14,8 @@ let
 
   sources = {
     x86_64-linux = fetchurl {
-      url = "https://prod.download.desktop.kiro.dev/releases/202508160530--distro-linux-x64-tar-gz/202508160530-distro-linux-x64.tar.gz";
-      hash = "sha256-HE5LuCJ7TZ1qJ/jN4rYhRTslKh+1O1ObhC3WGw5sOw8=";
+      url = "https://prod.download.desktop.kiro.dev/releases/202510022241--distro-linux-x64-tar-gz/202510022241-distro-linux-x64.tar.gz";
+      hash = "sha256-1XdGN4Pp8EwDqQNQxfPT6mpV8uZLDqtCS/m3EUtGkeI=";
     };
   };
 
@@ -24,7 +24,7 @@ in
 callPackage vscode-generic rec {
   inherit useVSCodeRipgrep commandLineArgs;
 
-  version = "0.2.14";
+  version = "0.3.9";
   pname = "kiro";
 
   executableName = "kiro";
