@@ -12,6 +12,7 @@
       theme = "GruvboxDarkHard";
       window-decoration = "none";
       gtk-titlebar = false;
+      keybind = ''shift+enter=text:\n'';
     };
   };
 }
