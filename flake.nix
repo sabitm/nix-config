@@ -81,6 +81,7 @@
         };
         nix-index-database = nix-index-database.packages.${system}.default;
         postman9 = pkgs.callPackage ./packages/postman9.nix {};
+        whatsapp-web = pkgs.callPackage ./packages/whatsapp-web.nix {};
       }
     );
   };
