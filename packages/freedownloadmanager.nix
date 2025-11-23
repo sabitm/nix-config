@@ -3,7 +3,7 @@
   stdenv,
   fetchurl,
   dpkg,
-  wrapGAppsHook,
+  wrapGAppsHook3,
   autoPatchelfHook,
   udev,
   libdrm,
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     dpkg
-    wrapGAppsHook
+    wrapGAppsHook3
     libsForQt5.qt5.wrapQtAppsHook
     autoPatchelfHook
   ];

@@ -69,8 +69,6 @@
   nix = {
     settings = {
       auto-optimise-store = true;
-      # Change build-dir to avoid memory exhaustion
-      build-dir = "/var/tmp";
       experimental-features = [ "nix-command" "flakes" ];
     };
     gc = {
