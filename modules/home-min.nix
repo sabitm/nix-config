@@ -12,6 +12,7 @@
     ./home/navi.nix
     ./home/neovim.nix
     ./home/nixpkgs.nix
+    ./home/rust.nix
     ./home/yazi.nix
     ./home/zk.nix
   ];
