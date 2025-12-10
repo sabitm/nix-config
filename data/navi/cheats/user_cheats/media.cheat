@@ -48,6 +48,12 @@ magick <image> -channel RGB -negate <output>
 # map one color to another on an image
 magick <image> -fuzz 15% -fill "<color_target>" -opaque "<color_source>" <output>
 
+# merge and stack multiple images vertically
+magick <image> -append <output>
+
+# merge and stack multiple images horizontally
+magick <image> +append <output>
+
 $ image: ls
 $ source_video: ls
 $ start_time: echo -e "00:00:00\n"
