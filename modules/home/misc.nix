@@ -8,6 +8,11 @@
         builtins.readFile ../../data/misc/bin/replace
       )
     )
+    (
+      pkgs.writeScriptBin "getlines" (
+        builtins.readFile ../../data/misc/bin/getlines
+      )
+    )
   ];
 
   # Scripts file
