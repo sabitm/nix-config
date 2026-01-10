@@ -8,6 +8,7 @@
       "/dev/input/by-id/usb-SEJIN_SEJIN_USB_joint_Keyboard-event-kbd"
       "/dev/input/by-id/usb-Compx_2.4G_Receiver-if01-event-mouse"
       "/dev/input/by-path/platform-i8042-serio-0-event-kbd"
+      "/dev/input/by-id/usb-Logitech_USB_Optical_Mouse-event-mouse"
     ];
     extraDefCfg = "process-unmapped-keys yes";
     config = ''
