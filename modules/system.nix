@@ -18,6 +18,9 @@
 
   # Networking
   networking.networkmanager.enable = true;
+  networking.hosts = {
+    "127.0.0.1" = [ "localserver" ];
+  };
 
   # Set your time zone.
   time.timeZone = "Asia/Jakarta";
