@@ -73,6 +73,7 @@
     packages = allSystems (system:
       let pkgs = nixpkgs.legacyPackages.${system};
       in {
+        crossover = pkgs.callPackage ./packages/crossover.nix {};
         elyprismlauncher = pkgs.callPackage ./packages/elyprismlauncher.nix {};
         freedownloadmanager = pkgs.callPackage ./packages/freedownloadmanager.nix {};
         gtranslate = pkgs.callPackage ./packages/gtranslate.nix {};
