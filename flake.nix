@@ -9,9 +9,14 @@
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+    affinity-nix.url = "github:mrshmllow/affinity-nix";
+    affinity-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, nix-index-database, ... }:
+  outputs = inputs@{
+    self, nixpkgs, home-manager, sops-nix,
+    nix-index-database, affinity-nix, ...
+  }:
   let
     # Personal config
     myconf = import ./config.nix;
@@ -73,6 +78,7 @@
     packages = allSystems (system:
       let pkgs = nixpkgs.legacyPackages.${system};
       in {
+        affinity-v3 = affinity-nix.packages.${system}.v3;
         crossover = pkgs.callPackage ./packages/crossover.nix {};
         elyprismlauncher = pkgs.callPackage ./packages/elyprismlauncher.nix {};
         freedownloadmanager = pkgs.callPackage ./packages/freedownloadmanager.nix {};
