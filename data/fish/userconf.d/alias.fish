@@ -1,7 +1,4 @@
 # misc
-alias ae='aerc'
-alias aider='aider --no-git'
-alias aidera='aider --no-git --architect'
 alias df='df -h'
 alias free='free -h'
 alias jg='just -g'
