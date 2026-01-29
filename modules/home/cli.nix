@@ -4,6 +4,7 @@
   # Add packages
   home.packages = with pkgs; [
     dua
+    just
     mpv
     yt-dlp-light
   ];
