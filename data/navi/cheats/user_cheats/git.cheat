@@ -45,6 +45,12 @@ git submodule update --init --depth=1
 # submodule foreach execute command
 git submodule foreach --recursive git clean -xffd
 
+# partial clone with sparse checkout
+git clone --depth 1 --filter=blob:limit=100k --sparse <url>
+
+# pull specific path in sparse repository
+git sparse-checkout add <path>
+
 
 $ branch: git branch | cut -c3-
 $ lrbranch: git branch -r | cut -c3-
