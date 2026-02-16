@@ -8,3 +8,9 @@ nix hash convert --hash-algo sha256 "<hash>"
 
 # open port on nixos
 sudo nixos-firewall-tool open tcp 8080
+
+# optimize store
+nix store optimise
+
+# rebuild current system config
+sudo nixos-rebuild switch --flake .#lbox
