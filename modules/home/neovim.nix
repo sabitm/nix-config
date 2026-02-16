@@ -10,7 +10,7 @@ in
     (
       pkgs.writeScriptBin "nv" ''
       #!/bin/sh
-      nvim -u ${configHome}/nvim/min-init.lua "${"$"}{@}"
+      nvim -u ${configHome}/nvim/init-lite.lua "${"$"}{@}"
       ''
     )
   ];
