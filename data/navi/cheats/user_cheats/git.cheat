@@ -33,6 +33,9 @@ git branch <branch_name>
 # rename current branch
 git branch -m <new_name>
 
+# remove or detach branch upstream
+git branch --unset-upstream <branch>
+
 # add all staged changes to the last commit
 git commit --amend --no-edit
 
