@@ -54,6 +54,18 @@ magick <image> -append <output>
 # merge and stack multiple images horizontally
 magick <image> +append <output>
 
+# convert image to grayscale
+magick <image> -colorspace Gray <output>
+
+# display image (for crop, rotate, etc.)
+magick display <image>
+
+# batch inverse/negate images color
+mogrify -path <outdir> -channel RGB -negate *.<image_ext>
+
+# batch crop images
+mogrify -path <outdir> -crop <width>x<height>+<x_offset>+<y_offset> *.<image_ext>
+
 $ image: ls
 $ source_video: ls
 $ start_time: echo -e "00:00:00\n"
