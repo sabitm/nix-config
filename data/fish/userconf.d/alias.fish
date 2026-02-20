@@ -1,7 +1,9 @@
 # misc
 alias df='df -h'
+alias fdi='fd --no-ignore --hidden'
 alias free='free -h'
 alias jg='just -g'
+alias rgi='rg --no-ignore --hidden'
 alias rgx='rg -n -U --pcre2'
 alias tslen='gtranslate -s en -t id'
 alias tslid='gtranslate -s id -t en'
