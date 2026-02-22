@@ -1,9 +1,9 @@
 # remove fish welcome greeting
 set -g fish_greeting ""
 
-# set nv as editor and less as pager
-set -x EDITOR nv
-set -x VISUAL nv
+# set vim as editor and less as pager
+set -x EDITOR vim
+set -x VISUAL vim
 set -x PAGER less
 
 # set default less options

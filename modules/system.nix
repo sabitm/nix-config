@@ -42,7 +42,7 @@
 
   # Set environment variable
   environment.variables = {
-    EDITOR = "nv";
+    EDITOR = "vim";
   };
 
   # Default shell

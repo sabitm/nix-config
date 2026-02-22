@@ -5,10 +5,10 @@ let
   configHome = "${homeDir}/.config";
 in
 {
-  # Add nv script
+  # Add vim alias script
   home.packages = [
     (
-      pkgs.writeScriptBin "nv" ''
+      pkgs.writeScriptBin "vim" ''
       #!/bin/sh
       nvim -u ${configHome}/nvim/init-lite.lua "${"$"}{@}"
       ''
