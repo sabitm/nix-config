@@ -37,7 +37,10 @@
   home.packages = with pkgs; [];
 
   # Prepend some paths to PATH
-  home.sessionPath = [ "$HOME/.local/bin" ];
+  home.sessionPath = [
+    "$HOME/.local/bin"
+    "$HOME/go/bin"
+  ];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
