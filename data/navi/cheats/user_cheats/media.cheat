@@ -24,8 +24,22 @@ ffmpeg -i "<source_video>" -vf scale=-1:<height_res> -vcodec libx265 -crf 28 <ou
 # encode video to h.265 using ffmpeg with resolution and bitrate option
 ffmpeg -i "<source_video>" -vf scale=-1:<height_res> -b:v <bitrate_in_kilo>k -vcodec libx265 -crf 28 <output_name>.<output_ext>
 
-# encode video to h.264 using ffmpeg with resolution and bitrate option
-ffmpeg -i "<source_video>" -vf scale=-1:<height_res> -b:v <bitrate_in_kilo>k -vcodec h264 <output_name>.<output_ext>
+# compress video to h.264 using ffmpeg with multiple encoding option
+: '
+`-vf scale=` change resolution to 480, 720, etc.
+`-crf` change constant rate factor. higher number means lower quality. 23 is default for h264
+`-preset` change the compression optimization. slower mean more optimized
+`-b:a` change audio bitrate. 128k is indistinguishable from the higher
+'
+ffmpeg -i "<source_video>" \
+  -vf scale=-2:<resolution> \
+  -c:v libx264 \
+  -crf <crf> \
+  -preset <preset> \
+  -r <fps> \
+  -c:a aac \
+  -b:a <audio_bitrate>k \
+  <output_name>.<output_ext>
 
 # cut video at specified time (hh:mm:ss) until specified time (hh:mm:ss)
 ffmpeg -i "<source_video>" -ss <start_hh>:<start_00>:<start_ss> -to <to_hh>:<to_mm>:<to_ss> -async 1 <output_name>.<output_ext>
@@ -66,12 +80,18 @@ mogrify -path <outdir> -channel RGB -negate *.<image_ext>
 # batch crop images
 mogrify -path <outdir> -crop <width>x<height>+<x_offset>+<y_offset> *.<image_ext>
 
+$ audio_bitrate: echo -e '96\n128'
+$ background: echo -e "white\nblack"
+$ color_target: echo -e "#04032b\n"
+$ crf: echo -e '23\n26\n28'
+$ finish_time: echo -e "00:00:01\n"
+$ fps: echo -e '24\n30\n60'
 $ image: ls
+$ output_ext: echo "<source_video>" | awk -F '.' '{print $NF}' | sed 's/$/\n/'
+$ preset: echo -e 'slower\nslow\nmedium\nfast\nfaster\nveryfast'
+$ quality: echo -e "90\n"
+$ resolution: echo -e '360\n480\n720\n1080'
+$ scale: echo -e "360\n"
 $ source_video: ls
 $ start_time: echo -e "00:00:00\n"
-$ finish_time: echo -e "00:00:01\n"
-$ scale: echo -e "360\n"
 $ to_size: identify -format '%w\n%h' "<image>" | sort -nr | head -n 1
-$ background: echo -e "white\nblack\n"
-$ quality: echo -e "90\n"
-$ color_target: echo -e "#04032b\n"
