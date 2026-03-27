@@ -4,6 +4,7 @@
   # Add packages
   home.packages = with pkgs; [
     dua
+    file
     just
     mpv
     yt-dlp-light
@@ -26,6 +27,9 @@
     enable = true;
     enableFishIntegration = true;
   };
+
+  # Enable gcc
+  programs.gcc.enable = true;
 
   # Enable jq
   programs.jq.enable = true;
