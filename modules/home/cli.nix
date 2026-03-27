@@ -4,6 +4,7 @@
   # Add packages
   home.packages = with pkgs; [
     dua
+    ffmpeg-headless
     just
     mpv
     yt-dlp-light
