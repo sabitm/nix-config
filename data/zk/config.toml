@@ -39,14 +39,6 @@ id-case = "lower"
 author = "sabitm"
 
 
-# GROUP OVERRIDES
-[group.daily]
-paths = ["journal/daily"]
-
-[group.daily.note]
-filename = "{{format-date now}}"
-
-
 # MARKDOWN SETTINGS
 [format.markdown]
 # Enable support for #hashtags
@@ -96,13 +88,10 @@ luc = "zk list --quiet --format full --sort random --limit 1"
 ls = "zk list $@"
 
 # Edit global configuration file.
-c = '$EDITOR "$HOME/.config/zk/config.toml"'
+c = '$EDITOR "$HOME/nix-config/data/zk/config.toml"'
 
-# Create daily note
-d = 'zk new --no-input "$ZK_NOTEBOOK_DIR/journal/daily"'
-
-# Create journal note
-a = 'zk new --no-input "$ZK_NOTEBOOK_DIR/journal/$1" --title "${@:2}"'
+# Create note
+a = 'zk new --no-input "$ZK_NOTEBOOK_DIR/$1" --title "${@:2}"'
 
 # Init notebook
 i = 'rclone copy dbox:DropsyncFiles/Notebook "$ZK_NOTEBOOK_DIR"'
