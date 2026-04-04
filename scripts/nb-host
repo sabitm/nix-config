@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+usage() {
+  echo "Usage: nb-host {start|stop|status}"
+  exit 1
+}
+
+case "${1:-}" in
+  start)
+    sudo systemctl start sshd
+    echo "SSH started. Host is ready for remote builds."
+    ;;
+  stop)
+    sudo systemctl stop sshd
+    echo "SSH stopped."
+    ;;
+  status)
+    systemctl status sshd
+    ;;
+  *)
+    usage
+    ;;
+esac
