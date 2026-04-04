@@ -91,6 +91,40 @@ sudo nixos-rebuild switch --flake .#<name>
 
 Where `<name>` is the name of your configuration.
 
+## Remote Build
+
+One machine acts as the builder (host), the other offloads builds to it (client).
+
+### Host setup
+
+Import `modules/system/remote-builder.nix` in the host's configuration. This configures SSH and enables aarch64 emulation, but SSH does not start on boot.
+
+Toggle SSH on the host when needed:
+
+```shell
+./scripts/nb-host start   # open SSH for incoming builds
+./scripts/nb-host stop    # close when done
+./scripts/nb-host status  # check current state
+```
+
+### Client usage
+
+```shell
+./scripts/nb-client <host> <nixos-rebuild args> [--user <user>]
+```
+
+Examples:
+
+```shell
+# Build and switch using lbox as the remote builder
+./scripts/nb-client lbox switch --flake .#min
+
+# Override the SSH user (defaults to sabit)
+./scripts/nb-client lbox switch --flake .#min --user john
+```
+
+The script checks SSH connectivity first and exits with an error if the host is unreachable.
+
 ## Installing Packages
 
 To install packages from `packages` directory, simply head to one of package directory and run:

@@ -5,6 +5,7 @@
     [
       ./hardware-configuration.nix
       ../../modules/system.nix
+      ../../modules/system/remote-builder.nix
     ];
 
   # Enable ZFS support
