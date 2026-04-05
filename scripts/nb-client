@@ -32,10 +32,15 @@ while [[ $# -gt 0 ]]; do
 done
 
 BUILDER="ssh-ng://${USER}@${HOST} x86_64-linux,aarch64-linux - 4 1 nixos-test,benchmark,big-parallel,kvm"
+SUBSTITUTER="ssh-ng://${USER}@${HOST}"
 
 if ! ssh -o ConnectTimeout=5 -o BatchMode=yes "${USER}@${HOST}" true 2>/dev/null; then
-  echo "Cannot reach builder ${USER}@${HOST}. Run 'nb-host start' on the host first."
+  echo "Cannot reach ${USER}@${HOST}. Run 'nb-host start' on the host first."
   exit 1
 fi
 
-sudo nixos-rebuild "${args[@]}" --builders "$BUILDER" --use-remote-sudo
+sudo nixos-rebuild "${args[@]}" \
+  --builders "$BUILDER" \
+  --use-remote-sudo \
+  --option extra-substituters "$SUBSTITUTER" \
+  --option trusted-substituters "$SUBSTITUTER"
