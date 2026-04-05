@@ -118,21 +118,31 @@ Toggle SSH on the host when needed:
 
 ### Client usage
 
+Both scripts check SSH connectivity first and exit with an error if the host is unreachable. The host is used as both a remote builder and a local substituter (checked before `cache.nixos.org` to save bandwidth).
+
+**Rebuilding an existing system:**
+
 ```shell
 ./scripts/nb-client <host> <nixos-rebuild args> [--user <user>]
 ```
 
-Examples:
-
 ```shell
-# Build and switch using lbox as the remote builder
 ./scripts/nb-client lbox switch --flake .#min
-
-# Override the SSH user (defaults to sabit)
 ./scripts/nb-client lbox switch --flake .#min --user john
 ```
 
-The script checks SSH connectivity first and exits with an error if the host is unreachable.
+**Installing onto a new system (e.g. from a live USB):**
+
+```shell
+./scripts/nb-install <host> <nixos-install args> [--user <user>]
+```
+
+```shell
+./scripts/nb-install lbox --flake /mnt/etc/nixos#myhost --root /mnt
+./scripts/nb-install lbox --flake /mnt/etc/nixos#myhost --root /mnt --user john
+```
+
+The host's root SSH key must be authorized on the builder. Run `./scripts/get-ssh-key` on the client to ensure `/root/.ssh/id_ed25519` is populated.
 
 ## Installing Packages
 
