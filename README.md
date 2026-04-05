@@ -52,18 +52,27 @@ nixos-install --flake 'path/to/flake.nix#nixos'
 nixos-enter --root /mnt -c 'passwd sabit'
 ```
 
-### Getting SSH keys from bitwarden-cli
+### Getting SSH keys from Bitwarden
 
-Activate nix-shell with bitwarden-cli and jq package
+Add experimental feature into nix configuration if needed
 
 ```shell
-nix-shell -p bitwarden-cli jq
+./scripts/add-exp-feat
 ```
 
-Inside the shell, login to bitwarden
+Activate `nix shell` with current flake `rbw` package
 
 ```shell
-bw login
+nix shell .#rbw
+```
+
+Inside the shell, add email and login to bitwarden
+
+```shell
+# Add email into configuration
+rbw config set email "example@email.com"
+# Attempt login
+rbw login
 ```
 
 And then execute the scripts
