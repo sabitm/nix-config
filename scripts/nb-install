@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+usage() {
+  echo "Usage: nb-install <host> <nixos-install args> [--user <user>]"
+  echo "  Example: nb-install lbox --flake /mnt/etc/nixos#myhost --root /mnt"
+  echo "           nb-install lbox --flake /mnt/etc/nixos#myhost --root /mnt --user john"
+  exit 1
+}
+
+if [[ $# -lt 2 ]]; then
+  usage
+fi
+
+HOST="$1"
+shift
+USER="sabit"
+
+args=()
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --user)
+      USER="$2"
+      shift 2
+      ;;
+    *)
+      args+=("$1")
+      shift
+      ;;
+  esac
+done
+
+BUILDER="ssh-ng://${USER}@${HOST} x86_64-linux,aarch64-linux - 4 1 nixos-test,benchmark,big-parallel,kvm"
+
+if ! ssh -o ConnectTimeout=5 -o BatchMode=yes "${USER}@${HOST}" true 2>/dev/null; then
+  echo "Cannot reach builder ${USER}@${HOST}. Run 'nb-host start' on the host first."
+  exit 1
+fi
+
+sudo nixos-install "${args[@]}" --option builders "$BUILDER"
