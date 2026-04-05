@@ -11,6 +11,12 @@ rbw get --field public_key $sabit_ed >~/.ssh/id_ed25519.pub
 chmod 600 ~/.ssh/id_ed25519
 chmod 644 ~/.ssh/id_ed25519.pub
 
+sudo mkdir -p /root/.ssh
+rbw get --field private_key $sabit_ed | sudo tee /root/.ssh/id_ed25519 >/dev/null
+rbw get --field public_key $sabit_ed | sudo tee /root/.ssh/id_ed25519.pub >/dev/null
+sudo chmod 600 /root/.ssh/id_ed25519
+sudo chmod 644 /root/.ssh/id_ed25519.pub
+
 rbw get --field private_key $sabit_rsa >~/.ssh/id_rsa
 rbw get --field public_key $sabit_rsa >~/.ssh/id_rsa.pub
 chmod 600 ~/.ssh/id_rsa
