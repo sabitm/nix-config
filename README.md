@@ -4,13 +4,13 @@
 
 1. Start `wpa_supplicant` service
 
-```
+```shell
 sudo systemctl start wpa_supplicant
 ```
 
 1. Run `wpa_cli`
 
-```
+```shell
 add_network
 0
 set_network 0 ssid "myhomenetwork"
@@ -23,32 +23,33 @@ OK
 
 1. Partitioning and formatting
 
-```
+```shell
 parted /dev/sda -- mklabel gpt
 parted /dev/sda -- mkpart root ext4 512MB -8GB
 parted /dev/sda -- mkpart ESP fat32 1MB 512MB
 parted /dev/sda -- set 3 esp on
 ```
 
-```
+```shell
 mkfs.ext4 -L nixos /dev/sda1
 mkfs.fat -F 32 -n boot /dev/sda3
 ```
 
 1. Installing NixOS
 
-```
+```shell
 mount /dev/disk/by-label/nixos /mnt
 mkdir -p /mnt/boot
 mount -o umask=077 /dev/disk/by-label/boot /mnt/boot
 ```
 
-```
+```shell
+# Generate hardware config that you can copy to flake
 nixos-generate-config --root /mnt
-nixos-install --flake 'path/to/flake.nix#nixos'
 ```
 
-```
+```shell
+nixos-install --flake 'path/to/flake.nix#nixos'
 nixos-enter --root /mnt -c 'passwd sabit'
 ```
 
@@ -92,17 +93,17 @@ Before evaluating nix config, edit `config.nix` according to your needs.
 
 ### Running nix config
 
-Build nix config and switch using command below:
+Reuild your system using command below:
 
 ```shell
 sudo nixos-rebuild switch --flake .#<name>
 ```
 
-Where `<name>` is the name of your configuration.
+Where `<name>` is the name of your flake config.
 
-## Remote Build
+## Remote Build and Substituter
 
-One machine acts as the builder (host), the other offloads builds to it (client).
+One machine acts as the builder and substituter (host), the other offloads builds to it (client).
 
 ### Host setup
 
@@ -146,7 +147,7 @@ The host's root SSH key must be authorized on the builder. Run `./scripts/get-ss
 
 ## Installing Packages
 
-To install packages from `packages` directory, simply head to one of package directory and run:
+To install packages from `packages` directory, simply run:
 
 ```shell
 nix profile install .#<package-name>
