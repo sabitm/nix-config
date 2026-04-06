@@ -4,8 +4,8 @@ set -euo pipefail
 
 usage() {
   echo "Usage: nb-client <host> <nixos-rebuild args> [--user <user>]"
-  echo "  Example: nb-client lbox switch --flake /home/sabit/nix-config#min"
-  echo "           nb-client lbox switch --flake /home/sabit/nix-config#min --user john"
+  echo "  Example: nb-client lbox switch --flake /home/sabit/nix-config#base"
+  echo "           nb-client lbox switch --flake /home/sabit/nix-config#base --user john"
   exit 1
 }
 

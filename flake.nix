@@ -55,10 +55,10 @@
   in
   {
     nixosConfigurations = {
-      min = hostConfig {
-        hostModule = ./hosts/min;
-        homeModule = ./modules/home-min.nix;
-        hostname = "min";
+      base = hostConfig {
+        hostModule = ./hosts/lbox;
+        homeModule = ./modules/base.nix;
+        hostname = "base";
         withSops = false;
       };
 
