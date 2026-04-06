@@ -128,8 +128,8 @@ Both scripts check SSH connectivity first and exit with an error if the host is 
 ```
 
 ```shell
-./scripts/nb-client lbox switch --flake .#min
-./scripts/nb-client lbox switch --flake .#min --user john
+./scripts/nb-client lbox switch --flake .#base
+./scripts/nb-client lbox switch --flake .#base --user john
 ```
 
 **Installing onto a new system (e.g. from a live USB):**
