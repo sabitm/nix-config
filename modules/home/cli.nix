@@ -3,16 +3,18 @@
 {
   # Add packages
   home.packages = with pkgs; [
+    bat
     dua
+    fd
     file
     gcc
+    jq
     just
+    lazygit
     mpv
+    ripgrep
     yt-dlp-light
   ];
-
-  # Enable bat
-  programs.bat.enable = true;
 
   # Enable direnv
   programs.direnv = {
@@ -20,23 +22,11 @@
     nix-direnv.enable = true;
   };
 
-  # Enable fd
-  programs.fd.enable = true;
-
   # Enable fzf
   programs.fzf = {
     enable = true;
     enableFishIntegration = true;
   };
-
-  # Enable jq
-  programs.jq.enable = true;
-
-  # Enable lazygit
-  programs.lazygit.enable = true;
-
-  # Enable ripgrep
-  programs.ripgrep.enable = true;
 
   # Enable zoxide
   programs.zoxide = {
