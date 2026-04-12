@@ -6,7 +6,7 @@
 
 stdenv.mkDerivation rec {
   pname = "gtranslate";
-  version = "1.1.2";
+  version = "1.1.3";
   meta = with lib; {
     description = "Google translate in command line";
     homepage = "https://github.com/sabitm/gtranslate";
@@ -16,8 +16,8 @@ stdenv.mkDerivation rec {
   };
 
   src = fetchurl {
-    url = "https://github.com/sabitm/gtranslate/releases/download/v1.1.2/gtranslate-x86_64-unknown-linux-gnu";
-    hash = "sha256-hZJ1ILONHNcFHZNaY3hHdMHtrqRcN4BnsdYI3AJ3Xnw=";
+    url = "https://github.com/sabitm/gtranslate/releases/download/v${version}/gtranslate-x86_64-unknown-linux-musl";
+    hash = "sha256-C0qE7/TuTYI8w/2ri1KU5rwnbD1c/oKLrweWn8rGVC8=";
   };
 
   dontUnpack = true;
