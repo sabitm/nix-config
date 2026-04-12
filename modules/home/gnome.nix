@@ -90,5 +90,6 @@ in
     extraConfig = {
       gtk-application-prefer-dark-theme = true;
     };
+    theme = null;
   };
 }

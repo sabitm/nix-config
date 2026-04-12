@@ -8,7 +8,7 @@
   udev,
   libdrm,
   libpqxx,
-  unixODBC,
+  unixodbc,
   gst_all_1,
   alsa-lib,
   libpulseaudio,
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     libdrm
     libpqxx
-    unixODBC
+    unixodbc
     stdenv.cc.cc
     alsa-lib
     libpulseaudio

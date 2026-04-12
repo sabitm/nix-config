@@ -36,12 +36,12 @@
   libXtst,
   libXScrnSaver,
   libxkbcommon,
+  libxshmfence,
   libdrm,
   libgbm,
   libglvnd,
   # Postman 9 requires the use of old Openssl 1.1
   openssl_1_1,
-  xorg,
   copyDesktopItems,
   makeWrapper,
 }:
@@ -141,7 +141,7 @@ stdenv.mkDerivation rec {
     libXtst
     libXScrnSaver
     libxkbcommon
-    xorg.libxshmfence
+    libxshmfence
   ];
 
   nativeBuildInputs = [

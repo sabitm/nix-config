@@ -12,6 +12,7 @@
     flavors = {
       gruvbox-dark = ../../data/yazi/plugins/gruvbox-dark.yazi;
     };
+    shellWrapperName = "yy";
   };
 
   # Config file

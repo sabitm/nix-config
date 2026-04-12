@@ -6,7 +6,7 @@ in
 {
   # Add packages
   home.packages = with pkgs; [
-    perl540Packages.WWWYoutubeViewer
+    perl5Packages.WWWYoutubeViewer
   ];
 
   # Config file
