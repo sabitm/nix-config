@@ -8,7 +8,30 @@
   # Exclude GNOME packages
   environment.gnome.excludePackages = with pkgs; [
     gnome-console
+    gnome-characters
+    gnome-contacts
+    gnome-connections
+    gnome-disk-utility
+    gnome-font-viewer
+    gnome-logs
+    gnome-maps
+    gnome-music
+    gnome-system-monitor
+    gnome-tour
+    gnome-user-docs
+    gnome-weather
+    baobab
+    decibels
+    epiphany
+    seahorse
+    showtime
+    simple-scan
+    snapshot
+    yelp
   ];
+
+  # Add geary email client
+  programs.geary.enable = true;
 
   # Mime settings
   xdg.mime = {
