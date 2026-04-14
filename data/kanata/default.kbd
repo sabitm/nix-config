@@ -1,0 +1,23 @@
+(defcfg
+  process-unmapped-keys yes
+  linux-continue-if-no-devs-found yes
+  linux-dev-names-include (
+    "FocalTechPS/2 FocalTech Touchpad"
+    "SEJIN SEJIN USB joint Keyboard"
+    "Compx 2.4G Receiver Mouse"
+    "AT Translated Set 2 keyboard"
+  )
+)
+
+(defsrc
+  caps lctl rsft mwu mwd mlft mrgt
+)
+
+(deflayer default
+  @cap lmet @rsf mwu mwd mlft mrgt
+)
+
+(defalias
+  cap (tap-hold-press 200 200 esc lctl)
+  rsf (tap-hold-press 200 200 caps rsft)
+)
