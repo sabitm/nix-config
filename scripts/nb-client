@@ -41,6 +41,6 @@ fi
 
 sudo nixos-rebuild "${args[@]}" \
   --builders "$BUILDER" \
-  --use-remote-sudo \
+  --sudo \
   --option extra-substituters "$SUBSTITUTER" \
   --option trusted-substituters "$SUBSTITUTER"
