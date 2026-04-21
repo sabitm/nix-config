@@ -13,6 +13,8 @@ prepend_keymap = [
 	{ on = [ "g", "/" ], run = "cd /",          desc = "Go to root dir" },
 	{ on = [ "g", "b" ], run = 'cd "$ORIGIN"',  desc = "Go back to origin dir" },
 	{ on = [ "g", "l" ], run = 'cd "~/.local"', desc = "Go to ~/.local" },
+	{ on = [ "g", "z" ], run = 'cd "~/.cache"', desc = "Go to ~/.cache" },
+	{ on = [ "g", "t" ], run = 'cd "/tmp"',     desc = "Go to /tmp" },
 
 	{ on = [ "c", "y" ], run = 'shell -- for path in "$@"; do echo "file://$path"; done | wl-copy -t text/uri-list', desc = "Copy to clipboard" },
 	{ on = [ "c", "b" ], run = 'shell -- for path in "$@"; do cat "$path"; done | wl-copy', desc = "Copy content to clipboard" },
