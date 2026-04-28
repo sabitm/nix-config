@@ -83,6 +83,7 @@
         elyprismlauncher = pkgs.callPackage ./packages/elyprismlauncher.nix {};
         freedownloadmanager = pkgs.callPackage ./packages/freedownloadmanager.nix {};
         gtranslate = pkgs.callPackage ./packages/gtranslate.nix {};
+        hurl = pkgs.callPackage ./packages/hurl.nix {};
         kiro = pkgs.callPackage ./packages/kiro.nix {
           vscode-generic = (pkgs.path + "/pkgs/applications/editors/vscode/generic.nix");
         };
