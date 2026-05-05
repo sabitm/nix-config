@@ -3,8 +3,8 @@ prepend_keymap = [
 	{ on = "Q", run = "quit",                         desc = "Quit the process" },
 	{ on = "q", run = "quit --no-cwd-file",           desc = "Quit the process without outputting cwd-file" },
 
-	{ on = "!", run = 'shell "$SHELL" --block',     desc = "Open shell here" },
-	{ on = "O", run = 'plugin open-with-cmd block', desc = "Open with in terminal" },
+	{ on = "!", run = 'shell "$SHELL" --block',        desc = "Open shell here" },
+	{ on = "O", run = 'plugin open-with-cmd -- block', desc = "Open with in terminal" },
 
 	{ on = "2", run = "plugin smart-switch 1", desc = "Switch or create tab 2" },
 	{ on = "3", run = "plugin smart-switch 2", desc = "Switch or create tab 3" },
