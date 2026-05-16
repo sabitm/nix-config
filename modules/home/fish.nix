@@ -15,6 +15,13 @@
             source $file
         end
     end
+
+    # add subdirectories of ~/.local/bin to PATH
+    for dir in ~/.local/bin/*/
+        if test -d $dir
+            fish_add_path --path $dir
+        end
+    end
     '';
   };
 

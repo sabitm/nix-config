@@ -39,7 +39,6 @@
   # Prepend some paths to PATH
   home.sessionPath = [
     "$HOME/.local/bin"
-    "$HOME/go/bin"
   ];
 
   # Let Home Manager install and manage itself.
