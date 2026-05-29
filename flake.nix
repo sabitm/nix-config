@@ -87,6 +87,7 @@
         nix-index-database = nix-index-database.packages.${system}.default;
         postman9 = pkgs.callPackage ./packages/postman9.nix {};
         rbw = pkgs.callPackage ./packages/rbw.nix {};
+        spread = pkgs.callPackage ./packages/spread.nix {};
         steam-run = pkgs.callPackage ./packages/steam-run.nix {};
         whatsapp-web = pkgs.callPackage ./packages/whatsapp-web.nix {};
       }
