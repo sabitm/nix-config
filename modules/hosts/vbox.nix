@@ -15,6 +15,7 @@
     extraModules = [
       # base enables zram at normal priority; mkForce to opt this host out.
       ({ lib, ... }: { zramSwap.enable = lib.mkForce false; })
+      config.flake.modules.nixos.ssh
     ];
   };
 }
