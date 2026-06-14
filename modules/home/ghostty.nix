@@ -1,7 +1,7 @@
 { ... }:
 
 {
-  flake.modules.homeManager.base = { config, pkgs, ... }: {
+  flake.modules.homeManager.desktop = { config, pkgs, ... }: {
     # Enable ghostty
     programs.ghostty = {
       enable = true;

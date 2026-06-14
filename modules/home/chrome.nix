@@ -1,7 +1,7 @@
 { ... }:
 
 {
-  flake.modules.homeManager.base = { config, lib, ... }: {
+  flake.modules.homeManager.desktop = { config, lib, ... }: {
     # Enable chrome
     programs.google-chrome.enable = true;
 

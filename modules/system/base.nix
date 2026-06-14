@@ -33,7 +33,6 @@
       git
       neovim
       unzip
-      wl-clipboard
     ];
 
     # Set environment variable
@@ -48,11 +47,6 @@
     programs.nix-ld.enable = true;
     programs.nix-ld.libraries = with pkgs; [
       # Lib here
-    ];
-
-    # Add nerd font
-    fonts.packages = with pkgs; [
-      meslo-lgs-nf
     ];
 
     # Enable docker

@@ -1,7 +1,7 @@
 { ... }:
 
 {
-  flake.modules.homeManager.base = { config, pkgs, lib, ... }:
+  flake.modules.homeManager.desktop = { config, pkgs, lib, ... }:
     let
       # GNOME extensions
       extensions = with pkgs.gnomeExtensions; [

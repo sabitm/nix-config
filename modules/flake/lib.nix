@@ -8,7 +8,7 @@ in
     inherit (myconf) username;
 
     # Assemble a nixosSystem from the shared aggregates plus host specifics.
-    mkHost = { hostname, hostModule, withSops ? true, extraModules ? [ ] }:
+    mkHost = { hostname, hostModule, desktop ? true, withSops ? true, extraModules ? [ ] }:
       inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {
@@ -19,6 +19,7 @@ in
           hostModule
           config.flake.modules.nixos.base
         ]
+        ++ inputs.nixpkgs.lib.optional desktop config.flake.modules.nixos.desktop
         ++ inputs.nixpkgs.lib.optional withSops config.flake.modules.nixos.secrets
         ++ extraModules;
       };

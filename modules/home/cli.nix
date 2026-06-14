@@ -7,7 +7,6 @@
       dua
       file
       just
-      mpv
       yt-dlp-light
     ];
 

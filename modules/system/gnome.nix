@@ -1,7 +1,7 @@
 { ... }:
 
 {
-  flake.modules.nixos.base = { config, lib, pkgs, ... }: {
+  flake.modules.nixos.desktop = { config, lib, pkgs, ... }: {
     # Enable GNOME
     services.desktopManager.gnome.enable = true;
     services.displayManager.gdm.enable = true;
