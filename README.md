@@ -107,7 +107,7 @@ One machine acts as the builder and substituter (host), the other offloads build
 
 ### Host setup
 
-Import `modules/system/remote-builder.nix` in the host's configuration. This configures SSH and enables aarch64 emulation, but SSH does not start on boot.
+Add the remote-builder aggregate to the host: in `modules/hosts/<host>.nix`, include `config.flake.modules.nixos.remote-builder` in the host's `extraModules`. This configures SSH and enables aarch64 emulation, but SSH does not start on boot.
 
 Toggle SSH on the host when needed:
 
