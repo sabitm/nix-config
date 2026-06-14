@@ -1,11 +1,13 @@
-{ config, lib, pkgs, ... }:
+{ ... }:
 
 {
-  # Enable zk
-  programs.zk.enable = true;
+  flake.modules.homeManager.base = { config, lib, pkgs, ... }: {
+    # Enable zk
+    programs.zk.enable = true;
 
-  # Config file
-  xdg.configFile."zk/config.toml" = {
-    source = ../../data/zk/config.toml;
+    # Config file
+    xdg.configFile."zk/config.toml" = {
+      source = ../../data/zk/config.toml;
+    };
   };
 }

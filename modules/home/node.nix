@@ -1,13 +1,15 @@
-{ config, lib, pkgs, home, ... }:
+{ ... }:
 
 {
-  # Add npm global folder
-  home.file.".npmrc".text = ''
-    prefix=${config.home.homeDirectory}/.npm-global
-  '';
+  flake.modules.homeManager.base = { config, lib, pkgs, home, ... }: {
+    # Add npm global folder
+    home.file.".npmrc".text = ''
+      prefix=${config.home.homeDirectory}/.npm-global
+    '';
 
-  # Add to path
-  home.sessionPath = [
-    "$HOME/.npm-global/bin"
-  ];
+    # Add to path
+    home.sessionPath = [
+      "$HOME/.npm-global/bin"
+    ];
+  };
 }

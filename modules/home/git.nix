@@ -1,11 +1,13 @@
-{ config, lib, home, ... }:
+{ ... }:
 
 {
-  # Enable git
-  programs.git.enable = true;
+  flake.modules.homeManager.base = { config, lib, home, ... }: {
+    # Enable git
+    programs.git.enable = true;
 
-  # Config file
-  home.file.".gitconfig" = {
-    source = ../../data/git/.gitconfig;
+    # Config file
+    home.file.".gitconfig" = {
+      source = ../../data/git/.gitconfig;
+    };
   };
 }

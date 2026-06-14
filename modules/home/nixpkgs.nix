@@ -1,8 +1,10 @@
-{ config, lib, ... }:
+{ ... }:
 
 {
-  # Nixpkgs config file
-  xdg.configFile."nixpkgs/config.nix" = {
-    source = ../../data/nixpkgs/config.nix;
+  flake.modules.homeManager.base = { config, lib, ... }: {
+    # Nixpkgs config file
+    xdg.configFile."nixpkgs/config.nix" = {
+      source = ../../data/nixpkgs/config.nix;
+    };
   };
 }

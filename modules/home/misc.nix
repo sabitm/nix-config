@@ -1,22 +1,24 @@
-{ config, lib, pkgs, ... }:
+{ ... }:
 
 {
-  # Add binary
-  home.packages = [
-    (
-      pkgs.writeScriptBin "replace" (
-        builtins.readFile ../../data/misc/bin/replace
+  flake.modules.homeManager.base = { config, lib, pkgs, ... }: {
+    # Add binary
+    home.packages = [
+      (
+        pkgs.writeScriptBin "replace" (
+          builtins.readFile ../../data/misc/bin/replace
+        )
       )
-    )
-    (
-      pkgs.writeScriptBin "getlines" (
-        builtins.readFile ../../data/misc/bin/getlines
+      (
+        pkgs.writeScriptBin "getlines" (
+          builtins.readFile ../../data/misc/bin/getlines
+        )
       )
-    )
-  ];
+    ];
 
-  # Scripts file
-  home.file."Downloads/scripts/misc" = {
-    source = ../../data/misc/scripts;
+    # Scripts file
+    home.file."Downloads/scripts/misc" = {
+      source = ../../data/misc/scripts;
+    };
   };
 }
