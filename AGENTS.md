@@ -140,10 +140,6 @@ Derivations in `packages/` are exposed as `perSystem.packages` (see
 nix profile install .#<package-name>
 ```
 
-Current packages: `crossover`, `elyprismlauncher`, `freedownloadmanager`,
-`gtranslate`, `hurl`, `kiro`, `postman9`, `rbw`, `spread`, `steam-run`,
-`whatsapp-web`.
-
 ## Common Commands
 
 ```shell
