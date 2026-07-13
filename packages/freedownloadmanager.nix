@@ -12,7 +12,7 @@
   gst_all_1,
   alsa-lib,
   libpulseaudio,
-  libsForQt5,
+  qt5,
 }:
 
 stdenv.mkDerivation rec {
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     dpkg
     wrapGAppsHook3
-    libsForQt5.qt5.wrapQtAppsHook
+    qt5.wrapQtAppsHook
     autoPatchelfHook
   ];
 
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     stdenv.cc.cc
     alsa-lib
     libpulseaudio
-    libsForQt5.qt5.qtwayland
+    qt5.qtwayland
   ] ++ (with gst_all_1; [
     gstreamer
     gst-libav
