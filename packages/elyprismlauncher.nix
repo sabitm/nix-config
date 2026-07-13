@@ -70,6 +70,15 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
+  # The prebuilt binary was linked against cmark 0.31.1 (as shipped by Arch),
+  # but nixpkgs provides the ABI-compatible 0.31.2. Provide a compat symlink so
+  # autoPatchelf can satisfy the libcmark.so.0.31.1 dependency. Runs in
+  # preFixup, before autoPatchelf (which runs in postFixup) scans $out.
+  preFixup = ''
+    mkdir -p $out/lib
+    ln -s ${lib.getLib cmark}/lib/libcmark.so $out/lib/libcmark.so.0.31.1
+  '';
+
   qtWrapperArgs =
     let
       runtimeLibs = [
