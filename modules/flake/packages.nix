@@ -7,9 +7,6 @@
       elyprismlauncher = pkgs.callPackage ../../packages/elyprismlauncher.nix { };
       freedownloadmanager = pkgs.callPackage ../../packages/freedownloadmanager.nix { };
       gtranslate = pkgs.callPackage ../../packages/gtranslate.nix { };
-      kiro = pkgs.callPackage ../../packages/kiro.nix {
-        vscode-generic = (pkgs.path + "/pkgs/applications/editors/vscode/generic.nix");
-      };
       nix-index-database = inputs.nix-index-database.packages.${system}.default;
       postman9 = pkgs.callPackage ../../packages/postman9.nix { };
       rbw = pkgs.callPackage ../../packages/rbw.nix { };
