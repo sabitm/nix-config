@@ -4,6 +4,7 @@
   perSystem = { pkgs, system, ... }: {
     packages = {
       crossover = pkgs.callPackage ../../packages/crossover.nix { };
+      droidcam = pkgs.callPackage ../../packages/droidcam.nix { };
       elyprismlauncher = pkgs.callPackage ../../packages/elyprismlauncher.nix { };
       freedownloadmanager = pkgs.callPackage ../../packages/freedownloadmanager.nix { };
       gtranslate = pkgs.callPackage ../../packages/gtranslate.nix { };
