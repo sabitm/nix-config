@@ -14,3 +14,6 @@ nix store optimise
 
 # rebuild current system config
 sudo nixos-rebuild switch --flake .#lbox
+
+# nix store list all gc root symlinks
+nix-store --gc --print-roots | grep -v '/proc/'
