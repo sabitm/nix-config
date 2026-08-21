@@ -19,15 +19,17 @@
         "org/gnome/desktop/interface" = {
           color-scheme = "prefer-dark";
         };
-        # Disable App Search
+        # Disable external search providers
         "org/gnome/desktop/search-providers" = {
           disable-external = true;
         };
         "org/gnome/shell" = {
           # Extensions
           enabled-extensions = map (ext: ext.extensionUuid) extensions;
+        };
+        "org/gnome/shell/window-switcher" = {
           # Make alt-tab switch on current workspace only
-          "app-switcher/current-workspace-only" = true;
+          current-workspace-only = true;
         };
         # Keybinds
         "org/gnome/desktop/wm/keybindings" = {
@@ -81,19 +83,9 @@
       };
 
       # Set GTK theme
-      gtk.enable = true;
-      gtk.gtk3 = {
+      gtk = {
         enable = true;
-        extraConfig = {
-          gtk-application-prefer-dark-theme = true;
-        };
-      };
-      gtk.gtk4 = {
-        enable = true;
-        extraConfig = {
-          gtk-application-prefer-dark-theme = true;
-        };
-        theme = null;
+        colorScheme = "dark";
       };
     };
 }
