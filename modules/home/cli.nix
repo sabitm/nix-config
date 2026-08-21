@@ -13,6 +13,9 @@
     # Enable bat
     programs.bat.enable = true;
 
+    # Enable delta
+    programs.delta.enable = true;
+
     # Enable direnv
     programs.direnv = {
       enable = true;
