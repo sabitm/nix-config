@@ -4,6 +4,7 @@
   autoPatchelfHook,
   cmark,
   fetchurl,
+  libarchive,
   gamemode,
   glfw3-minecraft,
   jre17_minimal,
@@ -22,8 +23,10 @@
   pciutils,
   pipewire,
   stdenv,
+  qrencode,
   tomlplusplus,
   udev,
+  zlib,
   vulkan-loader,
   xrandr,
 
@@ -35,11 +38,11 @@
 
 stdenv.mkDerivation rec {
   pname = "elyprismlauncher";
-  version = "9.5";
+  version = "11.1.0";
 
   src = fetchurl {
-    url = "https://github.com/ElyPrismLauncher/ElyPrismLauncher/releases/download/${version}/ElyPrismLauncher-ArchLinux-x86_64-${version}.pkg.tar.zst";
-    hash = "sha256-QB1uOqHlPRF+Bxm+Pk0eTZgxvk8nJ2EzjGrbJ1MS3Bs=";
+    url = "https://github.com/ElyPrismLauncher/Launcher/releases/download/${version}/PineconeMC-ArchLinux-${version}.pkg.tar.zst";
+    hash = "sha256-cHxEmrdd2Uw/pZslYCgQi9xGKCKmeP1USsXaQ5KCGuA=";
   };
 
   nativeBuildInputs = [
@@ -49,12 +52,13 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     cmark
-    kdePackages.qt5compat
     kdePackages.qtbase
     kdePackages.qtsvg
     kdePackages.qtnetworkauth
-    kdePackages.quazip
+    libarchive
+    qrencode
     tomlplusplus
+    zlib
   ]
   ++ lib.optional (
     lib.versionAtLeast kdePackages.qtbase.version "6" && stdenv.hostPlatform.isLinux
@@ -68,15 +72,6 @@ stdenv.mkDerivation rec {
     cp -r share $out
 
     runHook postInstall
-  '';
-
-  # The prebuilt binary was linked against cmark 0.31.1 (as shipped by Arch),
-  # but nixpkgs provides the ABI-compatible 0.31.2. Provide a compat symlink so
-  # autoPatchelf can satisfy the libcmark.so.0.31.1 dependency. Runs in
-  # preFixup, before autoPatchelf (which runs in postFixup) scans $out.
-  preFixup = ''
-    mkdir -p $out/lib
-    ln -s ${lib.getLib cmark}/lib/libcmark.so $out/lib/libcmark.so.0.31.1
   '';
 
   qtWrapperArgs =
@@ -121,7 +116,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Fork of Prism Launcher with integrated support for Ely.by";
-    homepage = "https://github.com/ElyPrismLauncher/ElyPrismLauncher";
+    homepage = "https://github.com/ElyPrismLauncher/Launcher";
     license = licenses.gpl3;
     platforms = [ "x86_64-linux" ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
