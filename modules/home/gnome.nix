@@ -8,10 +8,25 @@
         appindicator
         removable-drive-menu
       ];
+      toggleAutoSuspend = pkgs.writeShellScriptBin "toggle-auto-suspend" ''
+        set -eu
+        idle_delay="$(${pkgs.glib}/bin/gsettings get org.gnome.desktop.session idle-delay | awk '{print $2}')"
+        if [ "$idle_delay" = "0" ]; then
+          ${pkgs.glib}/bin/gsettings set org.gnome.desktop.session idle-delay 300
+          ${pkgs.glib}/bin/gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-type 'suspend'
+          ${pkgs.glib}/bin/gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'suspend'
+          ${pkgs.libnotify}/bin/notify-send "Auto suspend" "Enabled"
+        else
+          ${pkgs.glib}/bin/gsettings set org.gnome.desktop.session idle-delay 0
+          ${pkgs.glib}/bin/gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-type 'nothing'
+          ${pkgs.glib}/bin/gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
+          ${pkgs.libnotify}/bin/notify-send "Auto suspend" "Disabled"
+        fi
+      '';
     in
     {
       # Add gnome extensions pkgs
-      home.packages = extensions;
+      home.packages = extensions ++ [ toggleAutoSuspend ];
 
       # GNOME settings
       dconf.settings = {
@@ -56,12 +71,18 @@
           volume-mute = ["<Super>F10"];
           custom-keybindings = [
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
+            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
           ];
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
           name = "Suspend";
           command = "systemctl suspend";
           binding = "<Super><Shift>x";
+        };
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
+          name = "Toggle auto suspend";
+          command = "toggle-auto-suspend";
+          binding = "<Super><Shift>z";
         };
         # Night light
         "org/gnome/settings-daemon/plugins/color" = {
