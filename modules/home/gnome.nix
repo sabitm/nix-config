@@ -54,6 +54,14 @@
           volume-down = ["<Super>F11"];
           volume-up = ["<Super>F12"];
           volume-mute = ["<Super>F10"];
+          custom-keybindings = [
+            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
+          ];
+        };
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
+          name = "Suspend";
+          command = "systemctl suspend";
+          binding = "<Super><Shift>x";
         };
         # Night light
         "org/gnome/settings-daemon/plugins/color" = {
