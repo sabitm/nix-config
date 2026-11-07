@@ -72,7 +72,6 @@ let
     vulkan-loader
     libjpeg
     libtiff
-    libpng12
     libxft
     libxrender
     cups
@@ -94,7 +93,7 @@ let
     openal
     openssl
     sane-backends
-    v4l-utils
+    libv4l
     pcsclite
     systemdLibs
     libxfixes
