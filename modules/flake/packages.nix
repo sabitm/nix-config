@@ -6,10 +6,8 @@
       crossover = pkgs.callPackage ../../packages/crossover.nix { };
       droidcam = pkgs.callPackage ../../packages/droidcam.nix { };
       elyprismlauncher = pkgs.callPackage ../../packages/elyprismlauncher.nix { };
-      freedownloadmanager = pkgs.callPackage ../../packages/freedownloadmanager.nix { };
       gtranslate = pkgs.callPackage ../../packages/gtranslate.nix { };
       nix-index-database = inputs.nix-index-database.packages.${system}.default;
-      postman9 = pkgs.callPackage ../../packages/postman9.nix { };
       prism = pkgs.callPackage ../../packages/prism.nix { };
       rbw = pkgs.callPackage ../../packages/rbw.nix { };
       spread = pkgs.callPackage ../../packages/spread.nix { };

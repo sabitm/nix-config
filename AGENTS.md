@@ -86,5 +86,5 @@ passes it to NixOS and home-manager modules. Add shared personal values to
   `~/.config/sops/age/keys.txt`, and disables source-file validation.
 - `modules/flake/packages.nix` exports local derivations from `packages/` plus
   `nix-index-database` from its flake input. Current local outputs are
-  `crossover`, `droidcam`, `elyprismlauncher`, `freedownloadmanager`,
-  `gtranslate`, `postman9`, `rbw`, `spread`, `steam-run`, and `whatsapp-web`.
+  `crossover`, `droidcam`, `elyprismlauncher`, `gtranslate`, `rbw`,
+  `spread`, `steam-run`, and `whatsapp-web`.
