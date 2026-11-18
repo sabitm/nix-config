@@ -14,6 +14,18 @@ function psm -d "ps sort by mem"
   tput smam
 end
 
+function lsp --wraps='find' -d 'List files with full path in a directory (defaults to PWD)'
+  set -l target "$PWD"
+  set -l extra_args $argv
+
+  if set -q argv[1]; and test -e "$argv[1]"
+    set target (realpath "$argv[1]")
+    set extra_args $argv[2..-1]
+  end
+
+  find "$target" -maxdepth 1 $extra_args
+end
+
 function y -d "yazi with change cwd on exit and set origin"
   set tmp (mktemp -t "yazi-cwd.XXXXXX")
   set -x ORIGIN "$PWD"
