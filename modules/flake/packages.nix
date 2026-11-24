@@ -7,6 +7,7 @@
       droidcam = pkgs.callPackage ../../packages/droidcam.nix { };
       elyprismlauncher = pkgs.callPackage ../../packages/elyprismlauncher.nix { };
       gtranslate = pkgs.callPackage ../../packages/gtranslate.nix { };
+      ladybird = pkgs.callPackage ../../packages/ladybird.nix { };
       nix-index-database = inputs.nix-index-database.packages.${system}.default;
       prism = pkgs.callPackage ../../packages/prism.nix { };
       rbw = pkgs.callPackage ../../packages/rbw.nix { };
