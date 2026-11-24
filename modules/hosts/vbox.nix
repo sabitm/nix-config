@@ -5,6 +5,7 @@
   flake.nixosConfigurations.vbox = config.flake.lib.mkHost {
     hostname = "vbox";
     hostModule = ../../hosts/vbox;
+    extraModules = [ config.flake.modules.nixos.ssh ];
   };
 
   # vbox-min: minimal/server variant of vbox, no desktop. Shares vbox hardware.
