@@ -1,0 +1,68 @@
+set -euo pipefail
+unset LD_LIBRARY_PATH LD_LIBRARY_PATH_ORIG SYSTEMD_UNIT_PATH
+
+staging=/run/hexnode-window-staging
+units=/run/systemd/system
+prefix=hexnode-window-test
+
+read_calendars() {
+    local source=$staging/hexnode_maintenance_$1.timer calendar
+    [[ -f $source && ! -L $source ]] || return 1
+    mapfile -t calendars < <(grep '^OnCalendar=' "$source" | cut -d= -f2-)
+    (( ${#calendars[@]} >= 1 && ${#calendars[@]} <= 7 )) || return 1
+    for calendar in "${calendars[@]}"; do
+        [[ $calendar =~ ^[[:alnum:][:blank:]*,:./-]+$ && ${#calendar} -le 100 ]] || return 1
+        systemd-analyze calendar -- "$calendar" >/dev/null || return 1
+    done
+}
+
+publish_timer() {
+    local edge=$1 tmp
+    shift
+    tmp=$(mktemp "$units/.$prefix.XXXXXX") || return 1
+    # Copy only the schedule. The callback is a fixed NixOS service that logs the event.
+    if ! {
+        printf '[Unit]\nDescription=Hexnode maintenance window %s (log-only test)\n' "$edge"
+        printf '[Timer]\nAccuracySec=1s\nPersistent=false\n'
+        printf 'OnCalendar=%s\n' "$@"
+    } >"$tmp" || ! chmod 0644 "$tmp" || ! mv -fT -- "$tmp" "$units/$prefix-$edge.timer"; then
+        rm -f -- "$tmp"
+        return 1
+    fi
+}
+
+case ${1:-} in
+    daemon-reload)
+        [[ $# == 1 ]] || exit 2
+        calendars=()
+        if ! read_calendars start; then echo 'Invalid Hexnode start schedule.' >&2; exit 1; fi
+        start_calendars=("${calendars[@]}")
+        if ! read_calendars stop; then echo 'Invalid Hexnode stop schedule.' >&2; exit 1; fi
+        publish_timer start "${start_calendars[@]}"
+        publish_timer stop "${calendars[@]}"
+        exec systemctl daemon-reload
+        ;;
+    disable|enable)
+        [[ $# == 3 && $2 == --now ]] || exit 2
+        case $3 in
+            hexnode_maintenance_start.timer) timer=$prefix-start.timer ;;
+            hexnode_maintenance_stop.timer) timer=$prefix-stop.timer ;;
+            *) echo 'Not a Hexnode maintenance timer.' >&2; exit 1 ;;
+        esac
+        # The agent recreates timers every boot. Do not add persistent enablement links.
+        if [[ $1 == enable ]]; then
+            [[ -f $units/$timer ]] || exit 1
+            exec systemctl start "$timer"
+        elif [[ -f $units/$timer ]]; then
+            exec systemctl stop "$timer"
+        fi
+        ;;
+    cleanup)
+        [[ $# == 1 ]] || exit 2
+        systemctl --no-block stop "$prefix-start.timer" "$prefix-stop.timer" 2>/dev/null || true
+        rm -f -- "$units/$prefix-start.timer" "$units/$prefix-stop.timer"
+        ;;
+    status|show|is-active|is-enabled|is-failed|list-units|list-timers|list-unit-files|--version)
+        exec systemctl "$@" ;;
+    *) echo 'Unsupported systemctl command during Hexnode maintenance test.' >&2; exit 1 ;;
+esac

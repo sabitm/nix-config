@@ -1,11 +1,14 @@
 { config, ... }:
 
 {
-  # vbox: VM, no ZFS, no remote-builder.
+  # vbox: laptop, no ZFS, no remote-builder.
   flake.nixosConfigurations.vbox = config.flake.lib.mkHost {
     hostname = "vbox";
     hostModule = ../../hosts/vbox;
-    extraModules = [ config.flake.modules.nixos.ssh ];
+    extraModules = [
+      config.flake.modules.nixos.ssh
+      ../../hosts/vbox/hexnode-window-test.nix
+    ];
   };
 
   # vbox-min: minimal/server variant of vbox, no desktop. Shares vbox hardware.
