@@ -63,6 +63,7 @@
       settings = {
         auto-optimise-store = true;
         experimental-features = [ "nix-command" "flakes" ];
+        trusted-users = [ myconf.username ];
         substituters = [
           "https://nix-community.cachix.org"
         ];
