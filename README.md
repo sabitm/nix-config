@@ -132,6 +132,22 @@ Both scripts check SSH connectivity first and exit with an error if the host is 
 ./scripts/nb-client lbox switch --flake .#base --user john
 ```
 
+**Adding packages to your user profile:**
+
+```shell
+./scripts/nb-profile <host> <nix profile args> [--user <user>]
+```
+
+```shell
+./scripts/nb-profile lbox add .#rbw
+./scripts/nb-profile lbox add nixpkgs#hello --user john
+```
+
+`nb-profile` runs as your user (never as root), refuses root execution, requires
+local daemon trust (`nix store info` reports trusted), and checks root SSH access
+to the builder before building. It uses `--option builders` with
+`builders-use-substitutes` and the host as an extra substituter.
+
 **Installing onto a new system (e.g. from a live USB):**
 
 ```shell

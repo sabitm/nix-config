@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+usage() {
+  echo "Usage: nb-profile <host> <nix profile args> [--user <user>]"
+  echo "  Example: nb-profile lbox add .#rbw"
+  echo "           nb-profile lbox add nixpkgs#hello --user john"
+  exit 1
+}
+
+if [[ $# -lt 2 ]]; then
+  usage
+fi
+
+if [[ $EUID -eq 0 ]]; then
+  echo "Do not run nb-profile as root. It manages your user profile."
+  exit 1
+fi
+
+HOST="$1"
+shift
+USER="sabit"
+
+args=()
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --user)
+      USER="$2"
+      shift 2
+      ;;
+    *)
+      args+=("$1")
+      shift
+      ;;
+  esac
+done
+
+if [[ ${#args[@]} -eq 0 ]]; then
+  usage
+fi
+
+if ! nix store info --json 2>/dev/null | grep -q '"trusted": *true'; then
+  echo "Local user is not trusted by the Nix daemon, so client builders would be ignored."
+  echo "Add the user to nix.settings.trusted-users on this machine first."
+  exit 1
+fi
+
+STORE="ssh-ng://${USER}@${HOST}"
+
+if ! sudo nix store info --store "$STORE" --json >/dev/null 2>&1; then
+  echo "Cannot reach Nix on ${USER}@${HOST} as root."
+  echo "Run 'nb-host start' on the host, verify /root/.ssh/id_ed25519, and accept the host key once with: sudo ssh ${USER}@${HOST} true"
+  exit 1
+fi
+
+BUILDER="${STORE} x86_64-linux,aarch64-linux - 4 1 nixos-test,benchmark,big-parallel,kvm"
+
+nix \
+  --option builders "$BUILDER" \
+  --option builders-use-substitutes true \
+  --option extra-substituters "$STORE" \
+  profile "${args[@]}"
