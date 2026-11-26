@@ -1,17 +1,22 @@
 { lib, pkgs, ... }:
 
 let
-  wrapper = pkgs.writeTextFile {
-    name = "hexnode-window-systemctl";
-    destination = "/bin/systemctl";
-    executable = true;
-    text = ''
-      #!${pkgs.runtimeShell} -p
-      export PATH=${lib.makeBinPath [ pkgs.coreutils pkgs.gnugrep pkgs.systemd ]}
-      ${builtins.readFile ./hexnode-window-systemctl}
-    '';
-    checkPhase = "${pkgs.runtimeShell} -n \"$target\"";
-  };
+  mkWrapper = name: command: runtimeInputs: source:
+    pkgs.writeTextFile {
+      inherit name;
+      destination = "/bin/${command}";
+      executable = true;
+      text = ''
+        #!${pkgs.runtimeShell} -p
+        export PATH=${lib.makeBinPath runtimeInputs}
+        ${builtins.readFile source}
+      '';
+      checkPhase = "${pkgs.runtimeShell} -n \"$target\"";
+    };
+  timerWrapper = mkWrapper "hexnode-window-systemctl" "systemctl"
+    [ pkgs.coreutils pkgs.gnugrep pkgs.systemd ] ./hexnode-window-systemctl;
+  updaterWrapper = mkWrapper "hexnode-update-systemd-run" "systemd-run"
+    [ pkgs.systemd ] ./hexnode-update-systemd-run;
   callback = edge: {
     description = "Hexnode maintenance window ${edge} (log-only test)";
     serviceConfig = {
@@ -36,17 +41,30 @@ in
       NIX_LD = "/run/current-system/sw/share/nix-ld/lib/ld.so";
       NIX_LD_LIBRARY_PATH = "/run/current-system/sw/share/nix-ld/lib";
       LD_LIBRARY_PATH = lib.makeLibraryPath [ pkgs.glib ];
-      PATH = lib.mkForce "${wrapper}/bin:/run/current-system/sw/bin:/run/wrappers/bin";
+      PATH = lib.mkForce (lib.makeBinPath [ timerWrapper updaterWrapper ] + ":/run/current-system/sw/bin:/run/wrappers/bin");
     };
     serviceConfig = {
       Type = "simple";
       ExecStart = "/usr/local/bin/hexnode_agent";
-      ExecStopPost = "${wrapper}/bin/systemctl cleanup";
+      ExecStopPost = "${timerWrapper}/bin/systemctl cleanup";
       Restart = "no";
       RuntimeDirectory = "hexnode-window-staging";
       RuntimeDirectoryMode = "0700";
       # Only the agent sees a writable directory at its hard-coded unit path.
       BindPaths = "/run/hexnode-window-staging:/etc/systemd/system";
+    };
+  };
+
+  systemd.services.hexnode-agent-safe-update = {
+    description = "Replace the Hexnode agent with rollback on startup failure";
+    environment.PATH = lib.mkForce (lib.makeBinPath [ pkgs.systemd ]);
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.python3}/bin/python3 -I -B ${./hexnode-update-agent.py}";
+      TimeoutStartSec = "3min";
+      NoNewPrivileges = true;
+      ProtectSystem = "strict";
+      ReadWritePaths = [ "/usr/local/bin" ];
     };
   };
 

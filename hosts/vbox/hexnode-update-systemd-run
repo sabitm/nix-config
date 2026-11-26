@@ -1,0 +1,20 @@
+set -euo pipefail
+unset LD_LIBRARY_PATH LD_LIBRARY_PATH_ORIG
+
+for arg in "$@"; do
+    case $arg in
+        *hexnode_agent_update*|*/tmp/update_hexnode_agent.sh*)
+            # The vendor command schedules a generated shell script from /tmp. Do not run it.
+            if [[ $# == 5 && $1 == --unit=hexnode_agent_update &&
+                  $2 == '--description=Hexnode Agent Update Script' &&
+                  $3 == /bin/sh && $4 == -c &&
+                  $5 == "/bin/sh -c 'sleep 10; /bin/sh /tmp/update_hexnode_agent.sh'" ]]; then
+                exec systemctl --no-block start hexnode-agent-safe-update.service
+            fi
+            echo 'Unsupported Hexnode update launcher.' >&2
+            exit 2
+            ;;
+    esac
+done
+
+exec systemd-run "$@"
